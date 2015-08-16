@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>More Effective Java - Liuxboy</title>
+  <meta name="author" content="Liu Chundong">
+
+  
+  <meta name="description" content="More Effective Java With Google&rsquo;s Joshua Bloch By Janice J. Heiss, October 2008 Interviews Index Effective Java Joshua Bloch, Google首席Java架构师, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://liuxboy.github.io/blog/2014/05/27/More-effective-Java/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Liuxboy" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Liuxboy</a></h1>
+  
+    <h2>while(true) coding</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="liuxboy.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">More Effective Java</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-27T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">More Effective Java With Google&rsquo;s Joshua Bloch</a></h2>
+
+<p><em>By Janice J. Heiss, October 2008</em><BR>    <br/>
+<em><a href="http://www.oracle.com/technetwork/articles/java/index-141532.html">Interviews Index</a></em></p>
+
+<p><a href="http://www.amazon.com/Effective-Java-2nd-Joshua-Bloch/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223917599&amp;sr=1-1">Effective Java</a></p>
+
+<p>Joshua Bloch, Google首席Java架构师, 前Sun公司杰出的工程师，在那里他领导并设计实现了众多Java平台特性，包括语言增强型的JDK5.0和饱受赞誉的Java集合框架(Java Collections Framework).他是在卡耐基.梅隆大学获得其计算机科学博士学位.</p>
+
+<p>Bloch因为他在2001年第一次出版的一本书而获得由《软件开发》杂志颁发的，久负盛名的Jolt大奖,这本书就是《Effective Java Programming Language Guide》，也即是众多开发者熟知的《Effective Java》,同时他还与人(Neal Gafter)合著了另一本评价很高的书——《Java解惑》(《Java Puzzlers》）.</p>
+
+<p>如果有一本书是Java开发者值得反复研读，而不是挂在嘴边说最喜爱的书的话，那它一定是<a href="http://www.amazon.com/Effective-Java-2nd-Joshua-Bloch/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223917599&amp;sr=1-1">Effective Java</a>.</p>
+
+<p>&ldquo;很容易觉得关于过早优化的普通警告对你不适用，因为你知道哪些代码是有严格时序的要求，且也知道怎样使其跑得更快. 但是在每次试图优化前或后，不经过测量，是不能够确定这一点的."——— Joshua Bloch,Author,《Effective Java, Second Edition》</p>
+
+<h2>Q</h2>
+
+<p>在新版的《Effective Java》的前言中,你描述了在2004年去Google的经历，并写到:&ldquo;我已经喜欢使用Java平台去开发一些类库，好在Google中使用它们. 现在我尝到了那些类库使用者的滋味"。那请问你作为一个用户体验者，如何通过本书的新版告诉我们什么呢？</p>
+
+<h2>A</h2>
+
+<p> 哦，首先，使我更强烈的感到API设计正确性的至关重要性.举个例子，我就十分想提供一个可替代的"文件通道"（FileChannel）来实现Google文件系统（Google File System），但是我不能，因为"文件系统"（FileChannel）是一个具体类，而不是一个接口.同样地，我想实现一个可增长的ByteBuffer，正是它们，令普通开发者每天都感到一系列的挫败感.</p>
+
+<h2>Q</h2>
+
+<p>你已经说过，Java开发者常见的一个错误是不自觉的倾向于代码优化，反而导致不必要的复杂度，使代码运行更慢.请问为什么开发者常常错误地优化代码?</p>
+
+<h2>A</h2>
+
+<p>作为一个软件开发者，你不得不变成一个乐观主义者，否则你就像掉进了一场战争.总得来讲，这是好事，但是也有一个负面情况：乐观导致过度自信，很容易觉得过早优化的普通警告并不适用于你，很容易觉得关于过早优化的普通警告对你不适用，因为你知道哪些代码是有严格时序的要求，且也知道怎样使其跑得更快. 但是在每次试图优化前或后，不经过测量，是不能够确定这一点的.</p>
+
+<h2>Q</h2>
+
+<p>你提到过另外一个错误，就是已经有一个很完美的库存在了，而有些开发者还是自顾自地写他们自己的代码而不用该库，开发者为什么会这么做呢？</p>
+
+<h2>A</h2>
+
+<p>有两个原因：到目前为止，最常见的原因是开发者压根就不知道已经有这个库存在了。 我理解开发者，因为有太多的库了，不可能对它们都保持跟踪，知晓动向. 也即是说，即是类库已经存在，也很难正确地获取到这些花大力气找到的特性。</p>
+
+<p>尤其是这样，当涉及到并发的时候. 专家们花费数月，写了些看上去还适当的并发程序，这种情况并不少见。当碰到这种功能需求时，聪明的开发者无论如何会去找一个合适的类库。确实很容易使重要的并发程序出错，而产生的错误几乎很难被发觉.</p>
+
+<p>第二个原因是开发者倾向于重新发明轮子，同样的原因是他们想过早地优化：想要保持代码健状,大多数开发者抱着一种“一定能做到”的态度, 然后实际确相去甚远. 他们对自己说,&ldquo;是的，这儿是有一个类库，但我能做得更好.&rdquo; 或许你确实能，但并不意味着你需要那样做. 使用标准库，除非它的的确确不符合你的需求.</p>
+
+<h2>Q</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/George_Orwell">George Orwell</a> 指出了5条著名的关于写代码的准则——那就再加上第六条: &ldquo;在满嘴胡说八道之前之前，打破这些规则.&rdquo; Effective Java现在又由78条诸如：“常用泛型方法”或者“考虑使用一个自定义的序列化形式”的规则组成。请问你有什么最喜欢的规则吗？那什么时候开发者应该打破这些规则呢？</p>
+
+<h2>A</h2>
+
+<p> 首先,我应该指出我厚着脸皮盗用了Orwell的警告.在Effective Java的介绍中，它是这样说的，“你不应该盲目地遵从规则，但是也只是偶尔有充分理由的情况下才打破它”</p>
+
+<p>我是一个易变的人，所以当另一天你再问我的时候，我最喜欢的规则可能已经变了，但今天，我选择第13条，“尽量减少类和成员的可访问性”，还有第15条，"尽量减小突变性.” 这两打规则超越任何特定的编程语言.</p>
+
+<p>前面一条是告诉你，想要扩展可行性，得最大限度的隐藏信息. 这信条最初来自David Parnas之口, 是良好编程的最基本的原则之一. 如果你隐藏信息，你就能自由的改变它们而不必冒险对系统做出有害的事情. 信息隐藏对模块与系统进行了解耦，允许它们可以独立地进行开发、测试、优化、使用、理解和修改</p>
+
+<p>后面一打是告诉你，想要尽可能简单地保持每个对象的状态空间. 如果一个对象是不可变的，它可以只有一个状态，那你赚大发了. 你永远不用担心这个对象的状态是什么, 你可以自由的分享它，且不需要做同步控制. 如果你不能使一个对象不可变，至少应可能将可变性降到最低. 这样使得更容易正确地使用对象.</p>
+
+<p>作为一个极端例子不应该这么做，那就是java.util.Calendar类库. 很少有人知道它的状态——我当然不是——这是一个持续了多年bug来源</p>
+
+<p>那么时候打破规则呢？ 为了阐述Orwell,你应该打破它们，当它们导致代码已经到了相当垃圾，忍无可忍的时候. 举个简单例子,第25说, &ldquo;首选lists而不是数组.&rdquo; 那么为什么values()方法出现在每个枚举类型中时候，返回却是数组?因为使用这个方法最常见的情况是为了遍历该枚举值的元素，实现起来遍历数组比遍历列表开销更小. 使用for-each结构，遍历代码如下面方式：</p>
+
+<pre><code>for (Planet p : Planet.values())
+</code></pre>
+
+<p>你可能也想过，从枚举设计者方面看来，这是不成熟的优化，但并不是那样的。这不仅仅是内嵌循环代码的问题，它是循环，当然是，我们(JSR201专家组)是在进行了广泛的性能测量之后做出的决定，我很满意我们当初所做的正确决定。</p>
+
+<p>另外你应该打破规则，是当其中两条规则促使你作出相反的决定的时候。在这种情况时，你不得不选择更重要的那个，这是非常困难的</p>
+
+<p>当我面对这种决定时，通常是找另一个人讨论讨论，以检查一下合理性. 这并不是什么丢脸的事情，可以说这是一个最佳实践. 与普遍的看法相反，软件设计确不是这样——或者不应该是这样——一个孤独的职业.</p>
+
+<p><strong>泛型、枚举、注解(Generics, Enums, and Annotations)</strong></p>
+
+<h2>Q</h2>
+
+<p>你相信开发者应该知道的泛型、枚举、注解，请给我们讲讲个中缘由</p>
+
+<h2>A</h2>
+
+<p>由于篇幅显示，它可能只是个小的尝试，但我们继续看。
+对于泛型，引述为"不要使用原始类型"（第23条）.如果一个类库设计者花费时间去设计一个泛型类库，你就应该好好利用它。换句话说，不要这样做：</p>
+
+<pre><code>//Raw type-leads to unsafe code!'
+List dogs = new ArrayList();'
+</code></pre>
+
+<p>相反地，应该这样：</p>
+
+<pre><code>List&lt;Dog&gt; dogs = new ArrayList&lt;Dog&gt;();
+</code></pre>
+
+<p>首先，这样看上去像是不必要的冗余，但是并不是这样的. 这样是告诉编译器哪种元素是这个List是持有的，使它能在编译期间发现很多错误，否则在运行的时候，
+会导致很多<strong>ClassCastException</strong>类型异常.你也能在你的程序中消除许多丑陋的转型</p>
+
+<p>对于枚举，引述为"总是使用枚举类代替整型常量" (第30条). 枚举类型具有很多优点：编译时期的类型安全,
+添加和删除其值不会影响客户端，有趣的打印值，关联方法与字段值的能力等等.因为有了EnumSet，这个建议同样适用于某些字段，
+尽管它或许这被认为已经被废弃了</p>
+
+<p>对于注解，引述为"不要采用你自定义注解，除非你有一个非常好的理由，在你的环境中老老实实用标准注解就行.&ldquo;
+对于许多程序员来说，唯一使用到的是@Override（第36条）和@SuppressWarnings（第24条）
+使用@Override注解是一个能轻松把你从难以察觉的错误中拯救出来。值得注意的是，你本想覆盖equals方法的时候，却以外地重载equals方法，这种
+情况并不少见，就造成了微妙的，致命的错误：</p>
+
+<pre><code>// Broken! Unintentional overloading
+public boolean equals(MyClass other) { // MyClass should be Object.
+    ...
+}
+</code></pre>
+
+<p>如果你告诉编译器，确实是你要覆盖父类中的方法，它就能向你报告你犯的错误：
+If you tell the compiler that you believe you&rsquo;re overriding a superclass method, it will inform you of your error:</p>
+
+<pre><code>// @Override annotation prevents broken code from compiling.
+@Override
+public boolean equals(MyClass mc) {
+    ...
+}
+</code></pre>
+
+<p>懒式初始化的最佳实践(Best Practices for Lazy Initialization)</p>
+
+<h2>Q</h2>
+
+<p>在lazy-initialization的最佳实践中，最重要的什么？</p>
+
+<h2>A</h2>
+
+<p>(lazy-initialization)对单例最重要的建议就是"不要这样做除非非做不可",
+The single most important piece of advice is &ldquo;Don&rsquo;t do it unless you need to.&rdquo;
+绝大多数的初始化代码看起来像下面这样:
+The great majority of your initialization code should look like this:</p>
+
+<pre><code>// Normal initialization, not lazy!
+private final FieldType field = computeFieldValue();
+</code></pre>
+
+<p>如果你需要正确地lazy-initialization——而不考虑性能的话——只使用一个同步处理器就成，简单明了，显然也不会出错。
+如果你需要考虑性能的话，你最好选择取决于你是初始化一个静态域还是一个实例域。
+如果是一个静态域，使用预定俗成的lazy-initialization持有
+类：</p>
+
+<pre><code>// Lazy initialization holder class idiom for static fields
+private static class FieldHolder {
+    static final FieldType field = computeFieldValue();
+}
+static FieldType getField() { return FieldHolder.field; }
+</code></pre>
+
+<p>这样约定俗成的方法简直就是魔法. 这儿有同步，但是是不可见的. Java运行环境在幕后为你做这一切。
+实际上，许多虚拟机为了消除不必要的一次同步，打了补丁代码，作了优化。所以这法子极其地快。</p>
+
+<p>如果需要高性能地lazy-initialization一个实例域的话，
+对一个易变域使用"双检查模式"(double-check idiom), 这种模式在JDK5.0发布版之前，当平台获取一块新内存模型，不保证一定能工作.
+ 这个方法非常快，但是也非常复杂微妙，所以不要试图以任何方式修改它。
+仅需Copy和Paste——通常这不是个好主意，但是在这儿是最恰当的:</p>
+
+<pre><code>// Double-check idiom for lazy initialization of instance fields.
+private volatile FieldType field;
+FieldType getField() {
+    FieldType result = field;
+    if (result == null) { // First check (no locking)
+        synchronized(this) {
+            result = field;
+            if (result == null) // Second check (with locking)
+                field = result = computeFieldValue();
+            }
+        }
+         return result;
+    }
+</code></pre>
+
+<p>关于这个话题更多信息，请查看第71条.</p>
+
+<h2>Q</h2>
+
+<p>告诉我们一些关于Effective Java第二版你最值得骄傲地方有哪些？</p>
+
+<h2>A</h2>
+
+<p>我骄傲的是我还保留着这本书的感觉， 即是这门语言已经成长了不少。其中一个原因是第一版非常成功是由于其短小而平易近人。
+随着新的语言、类库特性使得平台变得越来越大，越来越复杂，不可避免的，本书也壮大了(从57条变到了78条)，
+但是我尽最大努力试图保持它的短小精悍，根据早些时候的反馈，我想基本还是取得了很大的成功。</p>
+
+<p><strong>关于Java平台最奇怪的事情</strong></p>
+
+<h2>Q</h2>
+
+<p>在Java平台上，经过7年多对开发的反思，什么是你觉得最奇怪的事情，说说看？</p>
+
+<h2>A</h2>
+
+<p>噢，是个好问题&hellip;我正准备说说关于Java平台最最奇怪的事情，那就是关于byte类型是有正负之分的。我从来没有听到过相关解释。这是相当违反直觉，且会带来许多排序问题。举个例子，如下这个程序你怎么想？</p>
+
+<pre><code>class Delight {
+    public static void main(String[] args) {
+        for (byte b = Byte.MIN_VALUE;b &lt; Byte.MAX_VALUE; b++) {
+            if (b == 0x90)
+                System.out.print("Joy!");
+        }
+    }
+}
+</code></pre>
+
+<p>如果你有什么疑惑，运行一下，如果你需要解释这种行为，那找到一份《Java解惑》，查阅<strong>疑惑24</strong></p>
+
+<p><strong>单元测试是有必需的</strong></p>
+
+<h2>Q</h2>
+
+<p> Java拥护者Dr.Heinz Kabutz发现单元测试失败是Java开发者的一个大问题。他指出，“在会议上，我问到,&lsquo;你们当中有多少人对你们的代码进行单元测试？&rsquo; 几乎没有人举手————而这些都是些（Java）资深人士.” 你作何反应呢？</p>
+
+<h2>A</h2>
+
+<p>很抱歉听到这个，单元测试是必需的! 如果你不这样做，你就不知道你的代码是否正常工作. 一个好的单元测试集能带给你更多的信心，当你的代码首次运行的时候，而且在你维护的时候不至于引入新的bugs.就算你不可避免地引入了bugs，单元测试能使你尽早地发现它们，所以你就能在它们引起破坏之前修复它们。</p>
+
+<p>注意,无论如何, 不能靠单元测试来确保你的代码正确工作，你需要理解代码并亲自证明它能正确工作。你也需要另外的人复查它们，当涉及到代码的事情上，两个脑袋总比一个脑袋要好。要了解关于这个话题更多详细的讨论，查看我的一篇关于二分查找的文章</p>
+
+<p><strong><em>readResolve</em>关不是万全之策</strong></p>
+
+<h2>Q</h2>
+
+<p>当你修订Effective Java时,你说过你必须以批判的眼光检查第一版的一切. 这儿有你意识到之前写的有些错误的引导吗？</p>
+
+<h2>A</h2>
+
+<p>对的，我曾认为readResolve这个方法可靠地保证，一个单例在面对序列化与反序列化的时候始终保持单例，最后被证明那不总是正确的(查看第77条)</p>
+
+<p>幸运地是，这儿有一个漂亮的解决办法：将你的序列化单例作为一个元素的枚举类去实现。 同时，当我一字不漏地读第一版的时候，也发现了一些小尴尬，一些错别字7年了都没有被发现。 还好，我现在都不记得它们了.</p>
+
+<p><strong>成为一个更优秀的写手</strong></p>
+
+<h2>Q</h2>
+
+<p>你曾说过开发者应该读Strunk和White的合著的书The Elements of Style（《文体指南》），因为要想成为一个优秀的写手，
+会使你成为一个优秀的开发者。你能解释一个为什么会这样呢?</p>
+
+<h2>A</h2>
+
+<p>我相信读Strunk and White的书能使你成为一个更优秀的开发者，因为好的编程与好的写作都是关于清晰和经济的表达观点的。
+除非你明白你想要努力表达的，否则你不能写出好的代码或好的散文。
+许多Strunk和White的警告有直接类似软件的。举例来说，Strunk和White说，“省略不必要的废话!”类似Andy Hunt和Dave Thomas（“The Pragmatic Programmers”）就说，
+“不要重复你自己.” Strunk和White说，“反复推敲与改写”类似Matin Fowler说的,“重构”等等。事实上，许多Strunk和White的建议甚至应该被解释后直接应用于软件。这里有好多例子，是从The Elements of Style的目录中逐字逐字摘出来的:
+<strong>选择合适的设计并坚持下去</strong>
+<strong>清晰</strong>
+<strong>在明晰的代价上是不要走捷径</strong></p>
+
+<h2>Q</h2>
+
+<p>《Effective Java》的哪条准则会整合进NetBeans这个IDE的最佳实践中呢?</p>
+
+<h2>A</h2>
+
+<p>第一版的许多规则都已经被很多IDE捕获到并做了检查，比如NetBeans、IntelliJ、Eclipse。类似地，FindBugs工具已经能相当好地自动完成这些检查。我猜测这些新的规则也会在这些工具中找到他们的解决方式。
+举个简单例子，我知道IDE已经能够检查@Override注解的所代表的意思，也会在你忘记它们的时候给予警告。</p>
+
+<p><strong>泛型是如何工作的</strong></p>
+
+<h2>Q</h2>
+
+<p>在2003，你就评论说，J2SE 5.0的改变中，对Java开发者来说，如果有什么特别的挑战的话，那就是泛型，因为开发者们"必须习惯在声明提时供额外的信息.&ldquo;，对此你认为泛型是怎么工作的呢？</p>
+
+<h2>A</h2>
+
+<p>只不过是在声明时添加类型信息，这些信息被证明是比较复杂的，但是在泛型的其它方面被证明是远远充满挑战的。举个实例，我们极大的低估了通配符的复杂性。它们是在开发后周加入的，
+我们也对其带来的微妙不是太感冒.
+泛型肯定提高了这门语言表达的安全性，很高兴泛型能被添加进来。但是它们也不是完全的胜利。你只有去精读Angelika Langer长达513页的Java 泛型FAQs之后才会领悟到这一点。
+所以，我希望我们能尽可能地简化这些设计。我同样希望，我能找到一些途径，使得泛型能和原始类型一块工作，所以我们本应该避免自动装箱与自动拆箱，那被证明是有bug倾向的。</p>
+
+<p>你认为这个程序会打印出什么结果呢?如果你有疑虑的话，运行它试试：</p>
+
+<pre><code>public class Unbelievable {
+    static Integer i;
+    public static void main(String[] args) {
+        if (i == 42)
+       System.out.println("Unbelievable");
+    }
+}
+</code></pre>
+
+<p><strong>JAVA平台的未来</strong></p>
+
+<h2>Q</h2>
+
+<p>对未来Java平台的一般与特殊的瓶颈，你想说什么呢?</p>
+
+<h2>A</h2>
+
+<p>It&rsquo;s difficult to predict the future of the platform.
+Things have been moving a bit slowly since the release of Java SE 6,
+and no one is quite sure what is coming in Java SE 7, or when it&rsquo;s coming.
+I&rsquo;m convinced that the Java programming language has used up its complexity budget
+with the changes introduced in release 5.0.
+It would be a huge mistake to add any new language features that significantly
+increased the complexity of the language.
+I would place BGGA Closures squarely in this category.
+For more on this topic, you can take a look at the Closures Controversy talk.
+A modest collection of minor language changes could improve the language,
+but it would have to be done with the utmost restraint.
+很难预测这个平台的未来。自动Java SE 6之后，事情进展得有些慢，没有人能确定Java SE 7能带来什么，又或者什么时候带来。
+使我深信的是Java编程语言随着5.0发布版的改变，已经用完它的复杂性预算。
+加入一些新的语言特性，这可能是一个巨大的错误，因为这些特性显著地增加了语言的复杂性。
+我会将BGGA这个瓶颈拿入这个议题。关于更多这个主题，你可以在"瓶颈争议谈"中看到。
+一个适度的小小语言改变集合能提高这门语言，但是得在极端严格的限制下完成
+<strong>成为小丑和傻瓜On Being Zany and Goofy While Developing</strong></p>
+
+<h2>Q</h2>
+
+<p>You have a long history of emphasizing fun in everything you do. At your defense of your Ph.D. dissertation, you answered a planted question with a rap song backed by a recorded rhythm track on a hidden tape recorder. And you and Neal Gafter did a &ldquo;Java Puzzlers&rdquo; routine in which you donned mechanics' overalls and called yourselves &ldquo;Click and Hack, the Type-It Brothers,&rdquo; after the radio show Car Talk . What can you say about the importance of zaniness, goofiness, and joy in the process of developing?</p>
+
+<h2>A</h2>
+
+<p>It&rsquo;s a huge part of who I am and what I do. As I always say, computer science is an immature discipline, and I aim to keep it that way. I do much better work when I&rsquo;m having fun and pursuing my passion. I&rsquo;m deeply thankful that I&rsquo;ve been able to spend so much of my academic and professional careers doing exactly that.</p>
+
+<p><strong>Advice for New Developers</strong></p>
+
+<h2>Q</h2>
+
+<p>Effective Java is a book written for experienced Java developers. Do you have any advice for how a computer science major in college might benefit from the book? Or an experienced developer moving from another language to Java?</p>
+
+<h2>A</h2>
+
+<p>Many programmers find it useful to keep a copy at their desk so they can look at the code examples and such while they work. Also, I&rsquo;ve seen people use the book&rsquo;s &ldquo;Item&rdquo; references in comments explaining their design decisions. Needless to say, I&rsquo;m honored that they&rsquo;ve done so.</p>
+
+<p>As for programmers moving from another language, I think they&rsquo;d do well to read a quick introduction to Java before tackling my book. Peter Sestoft&rsquo;s book Java Precisely would be an excellent choice.</p>
+
+<p><strong>See Also</strong></p>
+
+<p>[Effective Java]
+[Java Puzzlers]
+[Seeing Shouldn&rsquo;t Be Believing: Solving Java Puzzlers With Google&rsquo;s Joshua Bloch]
+[2008 JavaOne Conference &ndash; Rock Star Joshua Bloch]
+[2007 JavaOne Conference &ndash; Rock Star Joshua Bloch]
+[Joshua Bloch&rsquo;s Closures Controversy Talk]
+[New Language Features for Ease of Development in the Java 2 Platform, Standard Edition 5.0: A Conversation With Joshua Bloch]
+[Becoming a Better Programmer: A Conversation With Java Champion Heinz Kabutz]
+(待续&hellip;)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Liu Chundong</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-05-27T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://liuxboy.github.io/blog/2014/05/27/More-effective-Java/" data-via="" data-counturl="http://liuxboy.github.io/blog/2014/05/27/More-effective-Java/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/23/Some-Thinkings-about-MD5/" title="Previous Post: 由MD5想到的">&laquo; 由MD5想到的</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/17/Something-Of-HashMap/" title="Next Post: HashMap详解">HashMap详解 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">Bit Twiddling Hacks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/">很久没有来这里了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/20/The-Lord-Buddha-Bless/">牛逼的注释些</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/17/Something-Of-HashMap/">HashMap详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/27/More-effective-Java/">More Effective Java</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Liu Chundong -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

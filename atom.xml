@@ -1,93 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Liuxboy</title>
-  <meta name="author" content="Liu Chundong">
-
-  
-  <meta name="description" content="By Sean Eron Anderson &#115;&#x65;&#x61;&#110;&#100;&#x65;&#x72;&#64;&#99;&#x73;&#46;&#x73;&#x74;&#x61;&#110;&#x66;&#111;&#114;&#x64;&#x2e;&#x65;&# &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://liuxboy.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Liuxboy" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Liuxboy</a></h1>
-  
-    <h2>while(true) coding</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="liuxboy.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Liuxboy]]></title>
+  <link href="http://liuxboy.github.io/atom.xml" rel="self"/>
+  <link href="http://liuxboy.github.io/"/>
+  <updated>2015-08-16T19:21:09+08:00</updated>
+  <id>http://liuxboy.github.io/</id>
+  <author>
+    <name><![CDATA[Liu Chundong]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">Bit Twiddling Hacks</a></h1>
-    
-    
-      <p class="meta">
-        
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-
-
-
-<time class='entry-date' datetime='2015-04-27T00:00:00+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>By Sean Eron Anderson</h2>
+  
+  <entry>
+    <title type="html"><![CDATA[Bit Twiddling Hacks]]></title>
+    <link href="http://liuxboy.github.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/"/>
+    <updated>2015-04-27T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn</id>
+    <content type="html"><![CDATA[<h2>By Sean Eron Anderson</h2>
 
 <h3><a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#115;&#x65;&#97;&#x6e;&#100;&#101;&#x72;&#64;&#99;&#115;&#46;&#115;&#116;&#97;&#x6e;&#102;&#111;&#114;&#100;&#x2e;&#x65;&#100;&#117;">&#115;&#x65;&#x61;&#110;&#100;&#x65;&#x72;&#64;&#99;&#x73;&#46;&#x73;&#x74;&#x61;&#110;&#x66;&#111;&#114;&#x64;&#x2e;&#x65;&#x64;&#x75;</a></h3>
 
@@ -236,67 +167,27 @@ Determine if a word has byte less than n
 Determine if a word has a byte greater than n
 Determine if a word has a byte between m and n
 Compute the lexicographically next bit permutation</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/">很久没有来这里了</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-01-17T00:00:00+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>吐槽先</h2>
+  <entry>
+    <title type="html"><![CDATA[很久没有来这里了]]></title>
+    <link href="http://liuxboy.github.io/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/"/>
+    <updated>2015-01-17T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2015/01/17/很久没来这里了</id>
+    <content type="html"><![CDATA[<h2>吐槽先</h2>
 
 <h3>2014年7月1日，是我走出校门，工作满一年的日子，是个值得几年的日子，这一天作为下半年的开始，</h3>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/20/The-Lord-Buddha-Bless/">牛逼的注释些</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-08-20T00:00:00+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>/<em><em><br>
+  <entry>
+    <title type="html"><![CDATA[牛逼的注释些]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/08/20/The-Lord-Buddha-Bless/"/>
+    <updated>2014-08-20T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/08/20/The-Lord-Buddha-Bless</id>
+    <content type="html"><![CDATA[<p>/<em><em><br>
  </em>牛逼的注释些!<br>
  </em>/<br></p>
 
@@ -363,35 +254,15 @@ Compute the lexicographically next bit permutation</p>
     //                \         /_ | |__
     //                (___________))))))) 攻城湿
 </code></pre>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/17/Something-Of-HashMap/">HashMap详解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-07-17T00:00:00+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>1、JDK中HashMap类的说明</h2>
+  <entry>
+    <title type="html"><![CDATA[HashMap详解]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/07/17/Something-Of-HashMap/"/>
+    <updated>2014-07-17T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/07/17/Something-Of-HashMap</id>
+    <content type="html"><![CDATA[<h2>1、JDK中HashMap类的说明</h2>
 
 <p>JDK7.0中HashMap的doc<br>
 public class java.util.HashMap&lt;K, V><br>
@@ -596,35 +467,15 @@ capacity等于或大于传入参数initialCapacity，那么此时的capacity为�
 
 <p>计算key的hash，然后计算从table槽中的Entry开始遍历链表，如果遍历到某个Entry的hash跟key的hash相等，且其key与参数key相等，则返回该Entry的value,
 否则循环完成后仍没有返回，则返回null</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/27/More-effective-Java/">More Effective Java</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-27T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">More Effective Java With Google&rsquo;s Joshua Bloch</a></h2>
+  <entry>
+    <title type="html"><![CDATA[More Effective Java]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/05/27/More-effective-Java/"/>
+    <updated>2014-05-27T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/05/27/More-effective-Java</id>
+    <content type="html"><![CDATA[<h2><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">More Effective Java With Google&rsquo;s Joshua Bloch</a></h2>
 
 <p><em>By Janice J. Heiss, October 2008</em><BR>    <br/>
 <em><a href="http://www.oracle.com/technetwork/articles/java/index-141532.html">Interviews Index</a></em></p>
@@ -959,35 +810,15 @@ but it would have to be done with the utmost restraint.
 [New Language Features for Ease of Development in the Java 2 Platform, Standard Edition 5.0: A Conversation With Joshua Bloch]
 [Becoming a Better Programmer: A Conversation With Java Champion Heinz Kabutz]
 (待续&hellip;)</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/23/Some-Thinkings-about-MD5/">由MD5想到的</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-23T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>起因</h2>
+  <entry>
+    <title type="html"><![CDATA[由MD5想到的]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/05/23/Some-Thinkings-about-MD5/"/>
+    <updated>2014-05-23T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/05/23/Some-Thinkings-about-MD5</id>
+    <content type="html"><![CDATA[<h2>起因</h2>
 
 <p>今天碰到一个问题，主要功能是解决管理员修改用户账户信息的，但是在这里，想管理员在修改用户账户资料界面，能看到账户的密码，这个密码生成的时候是采用MD5加密过后，存在数据库的。一开始我想的是，密码那块统一显示*** ***，后来，同事觉得不太好看，觉得应该把实际密码显示出来，我当时也没有多想，既然知道加油的密文，解码显示就是了。后来才知道，捅了一个大篓子。</p>
 
@@ -1068,68 +899,28 @@ but it would have to be done with the utmost restraint.
 
 <p>向榜样学习，下面链接是我在Dropbox王小云两篇关于MD5 Hash Collision的论文，都是英文的，且看且翻译吧!
 <a href ="https://www.dropbox.com/sh/qpbj2c6v1469voa/AACZsSHJ8Y6__aki99VDd4rXa?m=" target="blank">论文连接</a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/20/Why-Here/">为什么搬到这里(Where Here)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-20T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>首次接触GitHub</h2>
+  <entry>
+    <title type="html"><![CDATA[为什么搬到这里(Where Here)]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/05/20/Why-Here/"/>
+    <updated>2014-05-20T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/05/20/Why-Here</id>
+    <content type="html"><![CDATA[<h2>首次接触GitHub</h2>
 
 <p>看我的github注册时间就应该知道，我是2013年初首次接触github的，被其新颖的分享方式，独特的代码交流吸引住了，然后就找了一大堆的相关材料阅读，
 不得不佩服我们的大教主，Linux之父发起的Git版本控制软件，然后在其思想及基础上，github降生了.
 对其历史，我就不在叙述，只是想说说我第一次接触的时候，它酷得让我着迷&hellip;</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/18/About-This-Blog/">关于博客(About the Blog)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-18T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>关于博客名</h2>
+  <entry>
+    <title type="html"><![CDATA[关于博客(About the Blog)]]></title>
+    <link href="http://liuxboy.github.io/blog/2014/05/18/About-This-Blog/"/>
+    <updated>2014-05-18T00:00:00+08:00</updated>
+    <id>http://liuxboy.github.io/blog/2014/05/18/About-This-Blog</id>
+    <content type="html"><![CDATA[<h2>关于博客名</h2>
 
 <hr />
 
@@ -1162,84 +953,7 @@ but it would have to be done with the utmost restraint.
 <p>我用我的<a href="https://gist.github.com/Liuxboy" target="_blank" alt="刘春东的个人简历">Gist</a> 维护个人简历，这简历也还是2013年找工作时候的简历，目前没有更新。或许等哪一天要跳槽了，我会更新它。</p>
 
 <p>回过头来看自己从前经历，暗暗发笑，有些傻，且嫩。但还是，是一步步在前进，那怕偶尔峰回路转。N年以后，同样会笑今天的举动，但同样为感谢今天我努力的样子!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">Bit Twiddling Hacks</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/">很久没有来这里了</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/08/20/The-Lord-Buddha-Bless/">牛逼的注释些</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/07/17/Something-Of-HashMap/">HashMap详解</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/27/More-effective-Java/">More Effective Java</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Liu Chundong -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>

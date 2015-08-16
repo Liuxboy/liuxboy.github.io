@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>由MD5想到的 - Liuxboy</title>
+  <meta name="author" content="Liu Chundong">
+
+  
+  <meta name="description" content="起因 今天碰到一个问题，主要功能是解决管理员修改用户账户信息的，但是在这里，想管理员在修改用户账户资料界面，能看到账户的密码，这个密码生成的时候是采用MD5加密过后，存在数据库的。一开始我想的是，密码那块统一显示*** ***，后来，同事觉得不太好看，觉得应该把实际密码显示出来，我当时也没有多想， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://liuxboy.github.io/blog/2014/05/23/Some-Thinkings-about-MD5/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Liuxboy" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Liuxboy</a></h1>
+  
+    <h2>while(true) coding</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="liuxboy.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">由MD5想到的</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-23T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>起因</h2>
+
+<p>今天碰到一个问题，主要功能是解决管理员修改用户账户信息的，但是在这里，想管理员在修改用户账户资料界面，能看到账户的密码，这个密码生成的时候是采用MD5加密过后，存在数据库的。一开始我想的是，密码那块统一显示*** ***，后来，同事觉得不太好看，觉得应该把实际密码显示出来，我当时也没有多想，既然知道加油的密文，解码显示就是了。后来才知道，捅了一个大篓子。</p>
+
+<p>经验尚缺，还需努力!</p>
+
+<h2>经过</h2>
+
+<p>到处搜MD5的解密办法，貌似还有众多煞有介事的解密程序，写个测试代码，把找到的代码都测试一下，结果都行不通，将密文代进去就是有问题。到数据库找一个密文贴到<a href="http://www.cmd5.com/">http://www.cmd5.com/</a>、<a href="http://www.xmd5.org/">http://www.xmd5.org/</a>等网站，基本是秒出。然后我就纳闷了，这是咋回事呢？</p>
+
+<p>随后我对MD5算法看它的wiki，看它相关的资料，下面是wiki对它的解释：</p>
+
+<blockquote><p><em>MD5即Message-Digest Algorithm 5（消息摘要算法第五版）的简称，是当前计算机领域用于确保信息传输完整一致而广泛使用的散列算法之一（又译哈希算法、摘要算法等），主流编程语言普遍已有MD5的实现。将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理，MD5的前身有MD2、MD3和MD4</em></p></blockquote>
+
+<p>看到这里我就隐约觉得背后有座大山的阴影压了过来，想啊，是散列算法(hash)，从一串不定长的数字、文字散列，也可以说是一种压缩成固定长度值，没有问题，但是想要把固定值再反算回去的难度，不可想像啊。不说别的，就是说散列前的字符长度是多少？？这个就够人折腾了吧&hellip;再看看它的来历：</p>
+
+<blockquote><p><em>1992年8月Ronald L. Rivest向IETF提交了一份重要文件，描述了这种算法的原理，由于这种算法的公开性和安全性，在90年代被广泛使用在各种程序语言中，用以确保资料传递无误等。MD5由MD4、MD3、MD2改进而来，主要增强算法复杂度和<strong>不可逆性。</strong></em></p></blockquote>
+
+<p>看到这里就明白了，具有<strong>不可逆性</strong>啊，我就呵呵了，Ronald这位大神（不知道Google去）搞出来的算法，且还是MD4、MD3、MD2改进而来，关键是之前真心不知道MD5是不可逆性啊，这就是见识短浅的表现。再看看人家的算法实现，基本晕菜：</p>
+
+<blockquote><p><em>MD5是输入不定长度信息，输出固定长度128-bits的算法。经过程序流程，生成四个32位数据，最后联合起来成为一个128-bits散列。基本方式为，求余、取余、调整长度、与链接变量进行循环运算。得出结果。</em></p></blockquote>
+
+<p><strong>&lt;此处插入图片></strong></p>
+
+<p>一个MD5运算— 由类似的64次循环构成，分成4组16次。F 一个非线性函数；一个函数运算一次。Mi 表示一个 32-bits 的输入数据，Ki 表示一个 32-bits 常数，用来完成每次不同的计算。</p>
+
+<p>看到这里，我基本就不想再看下去了。</p>
+
+<p>无知者无畏，真像我这样的。深感惭愧，于是给同事解释说，不行啦，MD5是不可逆算法，没办法在知道数据库密文的情况下，将其用程序逆向算出来。他也挺纳闷，不是在线网站一下子就算出来了么？这是怎么回事呢？
+查查了资料，找到了关于<a href="http://www.cmd5.com/">http://www.cmd5.com/</a>的资料。</p>
+
+<blockquote><p><em>md5破解、动网论坛密码破解等不再需要用穷举法，本站共有md5记录235亿条，还在不断增长中，已包含10位及10位以下数字、7位字母、部分7位字母＋数字,全部6位及以下字母加数字等组合，并针对国内用户做了大量优化，例如已经包含所有手机号码、全国部分大中城市固定电话号码、百家姓、常用拼音等大量组合，另加入了某大型网站真实会员密码数据10万条。本站数据量大，查询速度快，同时支持16位及32位密码查询。通过对10万会员的真实动网论坛样本数据的测试，本站对于动网论坛密码的命中率达到83%。本站4T的硬盘已经上线，正在生成数据，预计需要2个月左右时间，到时候本站能查询到12位数字和9位字母。</em></p></blockquote>
+
+<p>本人没有在该网站找到上述资料，倒是在其首页有这条消息：</p>
+
+<blockquote><p><em>本站针对md5等全球通用加密算法进行反向解密，拥有全球最大的数据库，成功率全球第一，很多复杂密文只有本站才可解密，支持多种算法，实时查询记录超过24万亿条，共占用160T硬盘，成功率95%，一般的查询是免费的。</em></p></blockquote>
+
+<p>说明前一条消息已经是很久以前的了，那时候才4T数据，现在已经160T了，数据还在不停上升。</p>
+
+<p>还有<a href="http://www.xmd5.org/">http://www.xmd5.org/</a>的说明资料</p>
+
+<blockquote><p><em>XMD5是MD5在线破解的权威站点，国内首家世界领先的密码解密网站。2005年建站至今共提供查询服务几亿次。数据现已全面升级，实时MD5算法解密数据已达数千亿，后台超级破解采用非云分布式计算，MD5破解范围达数万万亿条。并首家提供Servu FTP、二次MD5加密及常见salt加密等变异MD5解密服务。数据库还在不断快速增加，MD5破解从来没有终点。没有假日，没有休息。</em></p></blockquote>
+
+<p>由于MD5是将任意长度的“字节串”映射为一个128bit的大整数，并且是通过该128bit反推原始字符串是困难的，换句话说就是，即使你看到源程序和算法描述，也无法将一个MD5的值变换回原始的字符串，从数学原理上说，是因为原始的字符串有无穷多个，这有点象不存在反函数的数学函数。那这些网站的黑客们是怎么做到秒出结果的呢，继续查找资料：</p>
+
+<blockquote><p><em>现在被黑客使用最多的一种破译密码的方法就是一种被称为<strong>&ldquo;跑字典&rdquo;</strong>的方法。有两种方法得到字典，<strong>一种是日常搜集的用做密码的字符串表</strong>，<strong>另一种是用排列组合方法生成的，先用MD5程序计算出这些字典项的MD5值，然后再用目标的MD5值在这个字典中检索</strong>。我们假设密码的最大长度为8位字节（8 Bytes），同时密码只能是字母和数字，共26+26+10=62个字符，排列组合出的字典的项数则是P（62,1）+P（62,2）….+P（62,8），那也已经是一个很天文的数字了，存储这个字典就需要TB级的磁盘阵列，而且这种方法还有一个前提，就是能获得目标账户的密码MD5值的情况下才可以。</em>（百度百科）</p></blockquote>
+
+<p>难怪秒出MD5的明文，原来这些网站的收集的字典如此强大啊，百T程度了都，解密都是以亿为单位了。因为查这个，真是了解了很多东西呀，用现在流行的话说：涨姿势了!</p>
+
+<h2>延伸</h2>
+
+<p>同前段时间，既然是密码算法，逃不出加密、解密，只是对于常规解密来说，MD5的解密成本忒高了而已。这不，前段就提供了黑客、在线网站的解密方法么——“跑字典”。</p>
+
+<p>接着查找相关资料，哈哈，找到一个让国人相当长脸的人物，对，是个人物——山大王小云教授，我们知道，既然是MD5采用Hash算法，那么Hash算法就一个著名的Hash冲突(Hash Collision)问题存在。王小云正是在这里下功夫，主要是利用相关杂凑函数的杂凑冲撞。所谓<strong>杂凑冲撞</strong>指两个完全不同的讯息经杂凑函数计算得出完全相同的杂凑值。根据鸽巢原理，以有长度限制的杂凑函数计算没有长度限制的讯息是必然会有冲撞情况出现的。可是，一直以来，电脑保安专家都认为要任意制造出冲撞需时太长，在实际情况上不可能发生，而王小云等的发现可能会打破这个必然性。破解MD5密码算法，运算量达到2的80次方。即使采用现在最快的巨型计算机，也要运算100万年以上才能破解。但<strong>王小云和她的研究小组用普通的个人电脑，几分钟内就可以找到有效结果。</strong></p>
+
+<p>这是相当了不起了，虽然实际上她并不是完全破解了MD5，只是加速了hash colision,而且这种方法，连续让几大密码大厦都面临坍塌的危险，造成的国际影响非常具有影响力。</p>
+
+<p>王小云介绍说，世界上由于没有两个完全相同的指纹，因此手印成为人们身份惟一和安全的标志。在网络安全协议中，使用Hash函数来处理电子签名，以便产生理论上独一无二的“指纹”，形成“数字手印”。按照理想安全要求，经过Hash函数产生的指纹，原始信息即使只改变一位，其产生的“指纹”也会截然不同。如果能找到Hash函数的碰撞，就意味着两个不同的文件可以产生相同的“指纹”，这样就可以伪造签名。</p>
+
+<p>事实上，在MD5被王小云为代表的中国专家破译之后，世界密码学界仍然认为SHA－1是安全的。2005年2月7日，美国国家标准技术研究院发表申明，SHA－1没有被攻破，并且没有足够的理由怀疑它会很快被攻破，开发人员在2010年前应该转向更为安全的SHA－256和SHA－512算法。而仅仅在一周之后，王小云就宣布了破译SHA-1的消息。</p>
+
+<p>一连串的事件让我对这位女教授崇拜有嘉，非常崇拜，十年辛勤耕耘，总开花结果。</p>
+
+<h2>感想</h2>
+
+<h3>一、学无止境</h3>
+
+<p>一开始就是因为不知道MD5算法，就按常规思维觉得，只要知道密文，逆向就能得到原文的。谁知</p>
+
+<h3>二、安全常识</h3>
+
+<p>其实作为一个系统管理员，任何时候都不能见到用户的密码原文，那怕出于修改的时候。要不然，管理员可不得了，在它面前，毫无秘密可言，虽然这里也暴露出一个问题，管理员知道用户密文的情况下，他要是有意识的将密文拷出来，然后到在线网站上解密的话，是很容易成功的，因为绝大多数密码都不太长、简单数字、吉利数字、生日、车牌、电话号码等，这些对于目前的在线解密网站来说，是毫无压力的。</p>
+
+<h3>三、有些看法</h3>
+
+<p>一开始搜索相关的MD5解码，还找到了题目尽是“MD5加密解密之类”的代码，误导了我还去写测试代码。所以对那些在网上发布类似的代码的时候，还是要加上清楚的说明，别动不动就是MD5解密了，那那些专家们还干嘛吃呀。</p>
+
+<h3>四、学习榜样</h3>
+
+<p>向榜样学习，下面链接是我在Dropbox王小云两篇关于MD5 Hash Collision的论文，都是英文的，且看且翻译吧!
+<a href ="https://www.dropbox.com/sh/qpbj2c6v1469voa/AACZsSHJ8Y6__aki99VDd4rXa?m=" target="blank">论文连接</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Liu Chundong</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-05-23T00:00:00+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:00 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://liuxboy.github.io/blog/2014/05/23/Some-Thinkings-about-MD5/" data-via="" data-counturl="http://liuxboy.github.io/blog/2014/05/23/Some-Thinkings-about-MD5/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/20/Why-Here/" title="Previous Post: 为什么搬到这里(Where Here)">&laquo; 为什么搬到这里(Where Here)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/05/27/More-effective-Java/" title="Next Post: More effective Java">More effective Java &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">Bit Twiddling Hacks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/">很久没有来这里了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/20/The-Lord-Buddha-Bless/">牛逼的注释些</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/17/Something-Of-HashMap/">HashMap详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/27/More-effective-Java/">More Effective Java</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Liu Chundong -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
