@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bit Twiddling Hacks - Liuxboy's Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Bit Twiddling Hacks By Sean Eron Anderson &#x73;&#x65;&#97;&#x6e;&#100;&#x65;&#x72;&#x40;&#99;&#115;&#x2e;&#115;&#x74;&#97;&#x6e;&#102;&#111;&#114;&# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://github.liuxboy.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Liuxboy's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Liuxboy's Blog</a></h1>
+  
+    <h2>while(true) coding</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="github.liuxboy.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bit Twiddling Hacks</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-04-27T00:00:00+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Bit Twiddling Hacks</h1>
+
+<h2>By Sean Eron Anderson</h2>
+
+<h3><a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x73;&#x65;&#97;&#x6e;&#100;&#x65;&#x72;&#x40;&#99;&#x73;&#46;&#115;&#116;&#97;&#110;&#102;&#x6f;&#x72;&#x64;&#46;&#101;&#x64;&#x75;">&#x73;&#x65;&#97;&#x6e;&#100;&#x65;&#x72;&#x40;&#99;&#115;&#x2e;&#115;&#x74;&#97;&#x6e;&#102;&#111;&#114;&#100;&#x2e;&#x65;&#100;&#117;</a></h3>
+
+<hr />
+
+<p>向大神致敬，请收下我的膝盖，先让跪会儿，然后再站起，擦干眼泪学习!</p>
+
+<p>Individually, the code snippets here are in the public domain (unless otherwise noted) — feel free to use them however you please.
+特别地声明，这些代码片段都是公开的（特别注明除外）——只要你需要，你可自由地使用它们。
+The aggregate collection and descriptions are ? 1997-2005 Sean Eron Anderson. The code and descriptions are distributed in the hope that they will be useful,
+这份文档的收集和说明由?1997-2005 Sean Eron Anderson完成. 虽然发布这些代码和说明是希望朝一日能发挥它的作用,
+but WITHOUT ANY WARRANTY and without even the implied warranty of merchantability or fitness for a particular purpose.
+但是这并不保证，也不暗自保证其用于某一特殊目时的适用性和正确性.
+As of May 5, 2005, all the code has been tested thoroughly. Thousands of people have read it. Moreover, Professor Randal Bryant,
+截至2005年5月5日，这些代码都经过了充分的测试。成千上万的人都读过这些代码. 甚至卡内基.梅隆大学计算机系主任，<a href="http://www.cs.cmu.edu/~bryant/">Randal Bryant</a>教授, 还亲自将其在它的“<a href="http://uclid.eecs.berkeley.edu/">欧几里德
+</a>”代码验证系统上几乎全部测试过.
+the Dean of Computer Science at Carnegie Mellon University, has personally tested almost everything with his Uclid code verification system.
+What he hasn&rsquo;t tested, I have checked against all possible inputs on a 32-bit machine. To the first person to inform me of a legitimate bug in the code,
+那些他还没有测试到的，我也已经检查了32位机器上对所有可能的输入. 第一个向我报告一个有效bug的人，我将向其支付10美元(用支票或者PayPal都行). 如转交慈善机构的话，我将支付20美元.
+I&rsquo;ll pay a bounty of US$10 (by check or Paypal). If directed to a charity, I&rsquo;ll pay US$20.</p>
+
+<h2>目录</h2>
+
+<ul>
+<li>关于计数操作方法</li>
+<li>推算一个整数的符号</li>
+<li>探测两个整数具有相反的符号</li>
+<li>一行代码计算整数的绝对值</li>
+<li>一行代码得出两个整数的最大值或最小值</li>
+<li>确定一个整数是2的幂</li>
+<li>符号扩展
+
+<blockquote><ul>
+<li>Sign extending from a constant bit-width</li>
+<li>符号扩展自常量的bit位宽
+Sign extending from a variable bit-width</li>
+<li>符号扩展自变量的bit位宽
+Sign extending from a variable bit-width in 3 operations</li>
+<li>符号扩展自变量的bit位宽的三步操作</li>
+</ul>
+</blockquote></li>
+<li>Conditionally set or clear bits without branching</li>
+<li>无分支，有条件地设置或清空二进制数</li>
+<li>Conditionally negate a value without branching</li>
+<li>无分支，有条件取某个数的相反数</li>
+<li>Merge bits from two values according to a mask</li>
+<li>将两个数通过掩码按位合并</li>
+<li>Counting bits set</li>
+<li>计算二进制数集合
+
+<blockquote><ul>
+<li>Counting bits set, naive way</li>
+<li>计算二进制集合(朴素办法)</li>
+<li>Counting bits set by lookup table</li>
+<li>计算二进制集合，通过查找表</li>
+<li>Counting bits set, Brian Kernighan&rsquo;s way</li>
+<li>计算二进制集合，通过布莱恩·柯林汉方法</li>
+<li>Counting bits set in 14, 24, or 32-bit words using 64-bit instructions</li>
+<li>通过64位字长的指令，计算14位，24位或32位字长的二进制集合</li>
+<li>Counting bits set, in parallel</li>
+<li>计算二进制集合，采用并行方式</li>
+<li>Count bits set (rank) from the most-significant bit upto a given position</li>
+<li>计算二进制集合（等级），通过某个给定位置上的明显标志位</li>
+<li>Select the bit position (from the most-significant bit) with the given count (rank)</li>
+<li>选出给定计数（等级）时某个明显标志位上的二进制数</li>
+</ul>
+</blockquote></li>
+<li>Computing parity (1 if an odd number of bits set, 0 otherwise)</li>
+<li>计算奇偶性（在二进制集合中，1是奇数，0则是偶数）
+
+<blockquote><ul>
+<li>Compute parity of a word the naive way</li>
+<li>通过朴素方法判断一个字的奇偶性</li>
+<li>Compute parity by lookup table</li>
+<li>通过查找表判断奇偶性</li>
+<li>Compute parity of a byte using 64-bit multiply and modulus division</li>
+<li>用64位相乘和除模判断奇偶性</li>
+<li>Compute parity of word with a multiply</li>
+<li>通过乘法判断一个字的奇偶性</li>
+<li>Compute parity in parallel</li>
+<li>并行方式判断奇偶性</li>
+</ul>
+</blockquote></li>
+<li>Swapping Values
+
+<blockquote><ul>
+<li>Swapping values with subtraction and addition</li>
+<li>使用加法或减法交换两数</li>
+<li>Swapping values with XOR</li>
+<li>使用异或交换两数</li>
+<li>Swapping individual bits with XOR</li>
+<li>使用异或交换单个二进制数</li>
+</ul>
+</blockquote></li>
+<li>Reversing bit sequences</li>
+<li>转换二进制序列
+
+<blockquote><ul>
+<li>Reverse bits the obvious way</li>
+<li>通过常规方法转换二进制数</li>
+<li>Reverse bits in word by lookup table</li>
+<li>通过查找表转换一个字长的二进制数</li>
+<li>Reverse the bits in a byte with 3 operations (64-bit multiply and modulus division)</li>
+<li>通过3步操作（64位乘法和除模）</li>
+<li>Reverse the bits in a byte with 4 operations (64-bit multiply, no division)</li>
+<li>通过4步操作（64位乘法, 不要除数）</li>
+<li>Reverse the bits in a byte with 7 operations (no 64-bit, only 32)\</li>
+</ul>
+</blockquote></li>
+</ul>
+
+
+<p>Reverse an N-bit quantity in parallel with 5 * lg(N) operations
+Modulus division (aka computing remainders)
+Computing modulus division by 1 &lt;&lt; s without a division operation (obvious)
+Computing modulus division by (1 &lt;&lt; s) - 1 without a division operation
+Computing modulus division by (1 &lt;&lt; s) - 1 in parallel without a division operation
+Finding integer log base 2 of an integer (aka the position of the highest bit set)
+Find the log base 2 of an integer with the MSB N set in O(N) operations (the obvious way)
+Find the integer log base 2 of an integer with an 64-bit IEEE float
+Find the log base 2 of an integer with a lookup table
+Find the log base 2 of an N-bit integer in O(lg(N)) operations
+Find the log base 2 of an N-bit integer in O(lg(N)) operations with multiply and lookup
+Find integer log base 10 of an integer
+Find integer log base 10 of an integer the obvious way
+Find integer log base 2 of a 32-bit IEEE float
+Find integer log base 2 of the pow(2, r)-root of a 32-bit IEEE float (for unsigned integer r)
+Counting consecutive trailing zero bits (or finding bit indices)
+Count the consecutive zero bits (trailing) on the right linearly
+Count the consecutive zero bits (trailing) on the right in parallel
+Count the consecutive zero bits (trailing) on the right by binary search
+Count the consecutive zero bits (trailing) on the right by casting to a float
+Count the consecutive zero bits (trailing) on the right with modulus division and lookup
+Count the consecutive zero bits (trailing) on the right with multiply and lookup
+Round up to the next highest power of 2 by float casting
+Round up to the next highest power of 2
+Interleaving bits (aka computing Morton Numbers)
+Interleave bits the obvious way
+Interleave bits by table lookup
+Interleave bits with 64-bit multiply
+Interleave bits by Binary Magic Numbers
+Testing for ranges of bytes in a word (and counting occurances found)
+Determine if a word has a zero byte
+Determine if a word has a byte equal to n
+Determine if a word has byte less than n
+Determine if a word has a byte greater than n
+Determine if a word has a byte between m and n
+Compute the lexicographically next bit permutation</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-04-27T00:00:00+08:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:00 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://github.liuxboy.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/" data-via="" data-counturl="http://github.liuxboy.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/" title="Previous Post: 很久没有来这里了">&laquo; 很久没有来这里了</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/">Bit Twiddling Hacks</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/">很久没有来这里了</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/08/20/The-Lord-Buddha-Bless/">牛逼的注释些</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/17/Something-Of-HashMap/">HashMap详解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/27/More-effective-Java/">More Effective Java</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

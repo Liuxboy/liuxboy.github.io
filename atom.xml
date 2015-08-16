@@ -1,16 +1,969 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://liuxboy.github.io/atom.xml" rel="self"/>
-  <link href="http://liuxboy.github.io/"/>
-  <updated>2015-08-16T17:39:27+08:00</updated>
-  <id>http://liuxboy.github.io/</id>
+  <title><![CDATA[Liuxboy's Blog]]></title>
+  <link href="http://github.liuxboy.io/atom.xml" rel="self"/>
+  <link href="http://github.liuxboy.io/"/>
+  <updated>2015-08-16T18:34:24+08:00</updated>
+  <id>http://github.liuxboy.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Bit Twiddling Hacks]]></title>
+    <link href="http://github.liuxboy.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn/"/>
+    <updated>2015-04-27T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2015/04/27/Bit-Twiddling-Hacks-zh-cn</id>
+    <content type="html"><![CDATA[<h1>Bit Twiddling Hacks</h1>
+
+<h2>By Sean Eron Anderson</h2>
+
+<h3><a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x73;&#x65;&#97;&#x6e;&#100;&#x65;&#x72;&#x40;&#99;&#x73;&#46;&#115;&#116;&#97;&#110;&#102;&#x6f;&#x72;&#x64;&#46;&#101;&#x64;&#x75;">&#x73;&#x65;&#97;&#x6e;&#100;&#x65;&#x72;&#x40;&#99;&#115;&#x2e;&#115;&#x74;&#97;&#x6e;&#102;&#111;&#114;&#100;&#x2e;&#x65;&#100;&#117;</a></h3>
+
+<hr />
+
+<p>向大神致敬，请收下我的膝盖，先让跪会儿，然后再站起，擦干眼泪学习!</p>
+
+<p>Individually, the code snippets here are in the public domain (unless otherwise noted) — feel free to use them however you please.
+特别地声明，这些代码片段都是公开的（特别注明除外）——只要你需要，你可自由地使用它们。
+The aggregate collection and descriptions are ? 1997-2005 Sean Eron Anderson. The code and descriptions are distributed in the hope that they will be useful,
+这份文档的收集和说明由?1997-2005 Sean Eron Anderson完成. 虽然发布这些代码和说明是希望朝一日能发挥它的作用,
+but WITHOUT ANY WARRANTY and without even the implied warranty of merchantability or fitness for a particular purpose.
+但是这并不保证，也不暗自保证其用于某一特殊目时的适用性和正确性.
+As of May 5, 2005, all the code has been tested thoroughly. Thousands of people have read it. Moreover, Professor Randal Bryant,
+截至2005年5月5日，这些代码都经过了充分的测试。成千上万的人都读过这些代码. 甚至卡内基.梅隆大学计算机系主任，<a href="http://www.cs.cmu.edu/~bryant/">Randal Bryant</a>教授, 还亲自将其在它的“<a href="http://uclid.eecs.berkeley.edu/">欧几里德
+</a>”代码验证系统上几乎全部测试过.
+the Dean of Computer Science at Carnegie Mellon University, has personally tested almost everything with his Uclid code verification system.
+What he hasn&rsquo;t tested, I have checked against all possible inputs on a 32-bit machine. To the first person to inform me of a legitimate bug in the code,
+那些他还没有测试到的，我也已经检查了32位机器上对所有可能的输入. 第一个向我报告一个有效bug的人，我将向其支付10美元(用支票或者PayPal都行). 如转交慈善机构的话，我将支付20美元.
+I&rsquo;ll pay a bounty of US$10 (by check or Paypal). If directed to a charity, I&rsquo;ll pay US$20.</p>
+
+<h2>目录</h2>
+
+<ul>
+<li>关于计数操作方法</li>
+<li>推算一个整数的符号</li>
+<li>探测两个整数具有相反的符号</li>
+<li>一行代码计算整数的绝对值</li>
+<li>一行代码得出两个整数的最大值或最小值</li>
+<li>确定一个整数是2的幂</li>
+<li>符号扩展
+
+<blockquote><ul>
+<li>Sign extending from a constant bit-width</li>
+<li>符号扩展自常量的bit位宽
+Sign extending from a variable bit-width</li>
+<li>符号扩展自变量的bit位宽
+Sign extending from a variable bit-width in 3 operations</li>
+<li>符号扩展自变量的bit位宽的三步操作</li>
+</ul>
+</blockquote></li>
+<li>Conditionally set or clear bits without branching</li>
+<li>无分支，有条件地设置或清空二进制数</li>
+<li>Conditionally negate a value without branching</li>
+<li>无分支，有条件取某个数的相反数</li>
+<li>Merge bits from two values according to a mask</li>
+<li>将两个数通过掩码按位合并</li>
+<li>Counting bits set</li>
+<li>计算二进制数集合
+
+<blockquote><ul>
+<li>Counting bits set, naive way</li>
+<li>计算二进制集合(朴素办法)</li>
+<li>Counting bits set by lookup table</li>
+<li>计算二进制集合，通过查找表</li>
+<li>Counting bits set, Brian Kernighan&rsquo;s way</li>
+<li>计算二进制集合，通过布莱恩·柯林汉方法</li>
+<li>Counting bits set in 14, 24, or 32-bit words using 64-bit instructions</li>
+<li>通过64位字长的指令，计算14位，24位或32位字长的二进制集合</li>
+<li>Counting bits set, in parallel</li>
+<li>计算二进制集合，采用并行方式</li>
+<li>Count bits set (rank) from the most-significant bit upto a given position</li>
+<li>计算二进制集合（等级），通过某个给定位置上的明显标志位</li>
+<li>Select the bit position (from the most-significant bit) with the given count (rank)</li>
+<li>选出给定计数（等级）时某个明显标志位上的二进制数</li>
+</ul>
+</blockquote></li>
+<li>Computing parity (1 if an odd number of bits set, 0 otherwise)</li>
+<li>计算奇偶性（在二进制集合中，1是奇数，0则是偶数）
+
+<blockquote><ul>
+<li>Compute parity of a word the naive way</li>
+<li>通过朴素方法判断一个字的奇偶性</li>
+<li>Compute parity by lookup table</li>
+<li>通过查找表判断奇偶性</li>
+<li>Compute parity of a byte using 64-bit multiply and modulus division</li>
+<li>用64位相乘和除模判断奇偶性</li>
+<li>Compute parity of word with a multiply</li>
+<li>通过乘法判断一个字的奇偶性</li>
+<li>Compute parity in parallel</li>
+<li>并行方式判断奇偶性</li>
+</ul>
+</blockquote></li>
+<li>Swapping Values
+
+<blockquote><ul>
+<li>Swapping values with subtraction and addition</li>
+<li>使用加法或减法交换两数</li>
+<li>Swapping values with XOR</li>
+<li>使用异或交换两数</li>
+<li>Swapping individual bits with XOR</li>
+<li>使用异或交换单个二进制数</li>
+</ul>
+</blockquote></li>
+<li>Reversing bit sequences</li>
+<li>转换二进制序列
+
+<blockquote><ul>
+<li>Reverse bits the obvious way</li>
+<li>通过常规方法转换二进制数</li>
+<li>Reverse bits in word by lookup table</li>
+<li>通过查找表转换一个字长的二进制数</li>
+<li>Reverse the bits in a byte with 3 operations (64-bit multiply and modulus division)</li>
+<li>通过3步操作（64位乘法和除模）</li>
+<li>Reverse the bits in a byte with 4 operations (64-bit multiply, no division)</li>
+<li>通过4步操作（64位乘法, 不要除数）</li>
+<li>Reverse the bits in a byte with 7 operations (no 64-bit, only 32)\</li>
+</ul>
+</blockquote></li>
+</ul>
+
+
+<p>Reverse an N-bit quantity in parallel with 5 * lg(N) operations
+Modulus division (aka computing remainders)
+Computing modulus division by 1 &lt;&lt; s without a division operation (obvious)
+Computing modulus division by (1 &lt;&lt; s) - 1 without a division operation
+Computing modulus division by (1 &lt;&lt; s) - 1 in parallel without a division operation
+Finding integer log base 2 of an integer (aka the position of the highest bit set)
+Find the log base 2 of an integer with the MSB N set in O(N) operations (the obvious way)
+Find the integer log base 2 of an integer with an 64-bit IEEE float
+Find the log base 2 of an integer with a lookup table
+Find the log base 2 of an N-bit integer in O(lg(N)) operations
+Find the log base 2 of an N-bit integer in O(lg(N)) operations with multiply and lookup
+Find integer log base 10 of an integer
+Find integer log base 10 of an integer the obvious way
+Find integer log base 2 of a 32-bit IEEE float
+Find integer log base 2 of the pow(2, r)-root of a 32-bit IEEE float (for unsigned integer r)
+Counting consecutive trailing zero bits (or finding bit indices)
+Count the consecutive zero bits (trailing) on the right linearly
+Count the consecutive zero bits (trailing) on the right in parallel
+Count the consecutive zero bits (trailing) on the right by binary search
+Count the consecutive zero bits (trailing) on the right by casting to a float
+Count the consecutive zero bits (trailing) on the right with modulus division and lookup
+Count the consecutive zero bits (trailing) on the right with multiply and lookup
+Round up to the next highest power of 2 by float casting
+Round up to the next highest power of 2
+Interleaving bits (aka computing Morton Numbers)
+Interleave bits the obvious way
+Interleave bits by table lookup
+Interleave bits with 64-bit multiply
+Interleave bits by Binary Magic Numbers
+Testing for ranges of bytes in a word (and counting occurances found)
+Determine if a word has a zero byte
+Determine if a word has a byte equal to n
+Determine if a word has byte less than n
+Determine if a word has a byte greater than n
+Determine if a word has a byte between m and n
+Compute the lexicographically next bit permutation</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[很久没有来这里了]]></title>
+    <link href="http://github.liuxboy.io/blog/2015/01/17/%E5%BE%88%E4%B9%85%E6%B2%A1%E6%9D%A5%E8%BF%99%E9%87%8C%E4%BA%86/"/>
+    <updated>2015-01-17T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2015/01/17/很久没来这里了</id>
+    <content type="html"><![CDATA[<h1>很久没有来这里，实在是罪过</h1>
+
+<h2>吐槽先</h2>
+
+<h3>2014年7月1日，是我走出校门，工作满一年的日子，是个值得几年的日子，这一天作为下半年的开始，</h3>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[牛逼的注释些]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/08/20/The-Lord-Buddha-Bless/"/>
+    <updated>2014-08-20T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/08/20/The-Lord-Buddha-Bless</id>
+    <content type="html"><![CDATA[<p>/<em><em><br>
+ </em>牛逼的注释些!<br>
+ </em>/<br></p>
+
+<pre><code>    //                            _ooOoo_
+    //                           o8888888o
+    //                           88" . "88
+    //                           (| -_- |)
+    //                            O\ = /O
+    //                        ____/`---'\____
+    //                         .' \\| |// `.
+    //                       / \\||| : |||// \
+    //                     / _||||| -:- |||||- \
+    //                       | | \\\ - /// | |
+    //                     | \_| ''\---/'' | |
+    //                      \ .-\__ `-` ___/-. /
+    //                   ___`. .' /--.--\ `. . __
+    //                ."" '&lt; `.___\_&lt;|&gt;_/___.' &gt;'"".
+    //               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+    //                 \ \ `-. \_ __\ /__ _/ .-` / /
+    //         ======`-.____`-.___\_____/___.-`____.-'======
+    //                            `=---='
+    //
+    //         .............................................
+    //                  佛主保佑               永无BUG
+</code></pre>
+
+<hr />
+
+<pre><code>    //                     __------__
+    //                   /~          ~\
+    //                  |    //^\\//^\|
+    //                /~~\  ||  o| |o|:~\
+    //               | |6   ||___|_|_||:|
+    //                \__.  /      o  \/'
+    //                 |   (       O   )
+    //        /~~~~\    `\  \         /
+    //        | |~~\ |     )  ~------~`\
+    //        / |  | |   /     ____ /~~~)\
+    //        (_/'|   | | |     /'    | ( |
+    //            | | |     \    /   __)/ \
+    //            \  \ \      \/    /' \   `\
+    //             \  \|\        /   | |\___|
+    //                \ |  \____/     | |
+    //                /^~  \        _/&lt;
+    //           |--|         \       \
+    //           |  | \        \        \
+    //           -^-\  \       |        )
+    //               `\_______/^\______/ 程序猿
+</code></pre>
+
+<hr />
+
+<pre><code>    //                        ,%%%%%%%%,
+    //                      ,%%/\%%%%/\%%
+    //                     ,%%%\c "" J/%%%
+    //            %.       %%%%/ o  o \%%%
+    //            `%%.     %%%%    _  |%%%
+    //             `%%     `%%%%(__Y__)%%'
+    //             //       ;%%%%`\-/%%%'
+    //            ((       /  `%%%%%%%'
+    //             \\    .'          |
+    //              \\  /       \  | |
+    //               \\/         ) | |
+    //                \         /_ | |__
+    //                (___________))))))) 攻城湿
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HashMap详解]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/07/17/Something-Of-HashMap/"/>
+    <updated>2014-07-17T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/07/17/Something-Of-HashMap</id>
+    <content type="html"><![CDATA[<h2>1、JDK中HashMap类的说明</h2>
+
+<p>JDK7.0中HashMap的doc<br>
+public class java.util.HashMap&lt;K, V><br>
+extends java.util.AbstractMap&lt;K, V><br>
+implements java.util.Map&lt;K, V>, java.lang.Cloneable, java.io.Serializable</p>
+
+<p>Hash table是基本Map接口的实现。该实现提供了map的可选所有操作，也允许空value和空key，(HashMap类相当于HashTable类，除了它是非同步的且允许空value与空key)。这个类不保证映射的顺序；特殊情况下，也不保证映射的顺序不会随着时间变化。假设hash函数在槽中尽可能地打散各元素，则该实现对于基本操作(put和get)提供的运行时间是常量。 遍历集合的时间取决于HashMap的容积(槽的数量)与映射元素的数量的乘积(key-value对的数量)。因此，如果很看重其遍历效率的话，就不应该在初始化时，将容积设得太高(或者装载因低)，这点很重要。</p>
+
+<p>一个HashMap实例有两个参数影响其性能：初始容积与装载因子。容积是hash表中槽的数量，初始容积就是当hash表刚创建时的容积。 装载因子是衡量hash表允许装多满的一个尺度，便于在hash表的容积可以得到自动增加。当槽中的实体数量超过装载因子允许的范围或者当前的容积，这个hash表会重新hash一次(那即是，内建的数据结构会重建)以使得这个新hash表大致相当于原hash表的两倍。</p>
+
+<p>作为一个普遍的准则，默认的装载因子是0.75，能在时间和空间花费上提供一个较好折中方案的。减少空间花费更具价值，但又增加了查询的代价(这一点反应在绝大多数HashMap类的操作中，包括get和put)。在设置映射的初始容量时，映射中的预计实体数量和装载因子应慎重考虑，以减少rehash操作的次数。如果初始化容量比实体数量的最大值除以装载因子还要大，那rehash操作就不必发生。如果许多映射都由HashMap实例装填，创建一个足够容量的HashMap，这比起当表需要增长时，让其自动执行rehash来说，映射会被装填得更有效率。</p>
+
+<p>需要注意的是，HashMap是非同步的。如果多线程同时访问HashMap的话，且其中至少一个线程结构性的修改map，那必须在外部加上同步(synchronized)控制。(一个结构性的修改指任何添加或者删除一个或多个映射；仅仅改变该实体包含的key对应的值，这不叫结构性改变。) 对对象的自然封装，这是一种典型的成熟的同步方法，如果没有这种对象存在，这个映射应该用Collections.synchronizedMap方法进行封装。在某些情况下这是最好的办法，为了保护非同步访问map不发生意外：
+                 Map m = Collections.synchronizedMap(new HashMap(&hellip;));
+类所有的"集合视图方法"所返回的迭代器都具有fail-fast特性：当迭代器被创建好后，如果map在任何时候被结构性地改变，除了这个迭代器自身的remove方法之外的其他任何形式，都会抛出ConcurrentModificationException。因此，在面对并发修改时，这个迭代器是最快且最干脆地发出失败信号的，而不必为将来在某个不确定的时间的某个不确定行为进行冒险。</p>
+
+<p>注意迭代器的fail-fast行为并不能保证这种情形，一般说来，在面对不同步的并发修改时，要做出绝对保证，这是不可能的。 Fail-fast迭代器在最优的基础上抛出 ConcurrentModificationException。所以，依赖于这个异常的正确性去编程也是错误的：迭代器的fail-fast行为只能用在探测bugs时。</p>
+
+<h2>2、HashMap结构</h2>
+
+<p>1、首先看Entity&lt;K, V>，Entity&lt;K，V>是实现了Map接口里的Entity&lt;K，V>接口：</p>
+
+<pre><code>static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; {
+    final K key;
+    V value;
+    Entry&lt;K,V&gt; next;
+    int hash;
+    /**
+    * Creates new entry.
+    */
+    Entry(int h, K k, V v, Entry&lt;K,V&gt; n) {
+        value = v;
+        next = n;
+        key = k;
+        hash = h;
+    }
+    ... ...
+}
+</code></pre>
+
+<p>有四个属性：key, value, next, hash。其中key是final类型的，因为Map最重要的就是key，key决定值，且是唯一的不允许重复。
+再来看看最重要的equals方法，决定两个实体是否相等。</p>
+
+<pre><code>public final boolean equals(Object o) {
+    if (!(o instanceof Map.Entry))
+            return false;
+    Map.Entry e = (Map.Entry)o;
+    Object k1 = getKey();
+    Object k2 = e.getKey();
+    if (k1 == k2 || (k1 != null &amp;&amp; k1.equals(k2))) {
+        Object v1 = getValue();
+        Object v2 = e.getValue();
+        if (v1 == v2 || (v1 != null &amp;&amp; v1.equals(v2)))
+           return true;
+    }
+    return false;
+}
+</code></pre>
+
+<p>从该方法来看，是典型的判断对象相等的方法：首先判断比较对象是否是Map.Entity的实例，然后再与被比较key与value比较，重用了对象的
+equals()方法。</p>
+
+<p>2、再看HashMap的结构。</p>
+
+<pre><code>public HashMap(int initialCapacity, float loadFactor){
+    if (initialCapacity &lt; 0)
+        throw new IllegalArgumentException("Illegal initial capacity: " + initialCapacity);
+    if (initialCapacity &gt; MAXIMUM_CAPACITY)
+        initialCapacity = MAXIMUM_CAPACITY;
+    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))
+        throw new IllegalArgumentException("Illegal load factor: " + loadFactor);
+    //Find a power of 2 &gt;= initialCapacity
+    int capacity = 1;
+    while (capacity &lt; initialCapacity)
+        capacity &lt;&lt;= 1;
+    this.loadFactor = loadFactor;
+    threshold = (int)Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);
+    table = new Entry[capacity];
+    useAltHashing = sun.misc.VM.isBooted() &amp;&amp; (capacity &gt;= Holder.ALTERNATIVE_HASHING_THRESHOLD);
+    init();
+}
+</code></pre>
+
+<p>首先判断传入的两个参数是否合法，其中声明了一个局部变量capacity初始值为1，如果传入的参数initialCapacity大于1,则将capacity左移，直到
+capacity等于或大于传入参数initialCapacity，那么此时的capacity为大于或等于initialCapacity的2次幂，将装载因子修改为传入的参数loadFactor。
+最后，新建一个Entity数组，长度为capacity赋值给table(最终存储对象的Hash表)。</p>
+
+<p>其它两个构造函数为HashMap()和HashMap(int initialCapacity)都是初始化成默认的长度(16),默认的装载因子0.75</p>
+
+<p>3、再看HashMap中重要的两个方法，put和get</p>
+
+<hr />
+
+<p>先来看put(K key, V value)方法</p>
+
+<pre><code>public V put(K key, V value) {
+    if (key == null)
+        return putForNullKey(value);
+    int hash = hash(key);
+    int i = indexFor(hash, table.length);
+    for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {
+            V oldValue = e.value;
+            e.value = value;
+            e.recordAccess(this);
+            return oldValue;
+        }
+    }
+
+    modCount++;
+    addEntry(hash, key, value, i);
+    return null;
+}
+</code></pre>
+
+<p>首先判断是否为空key，是则调用专门处理key为null的情况；其次，计算key的hash值和该hash值在table中的index(其实就是返回hash &amp; (length-1);)，
+遍历table[i]槽位处的链表，看是否有相同的Key,Value实体。如果有，则覆盖之，并返回旧值，否则计数加1，并添加新Entry，其方法为addEntry()，
+具体实现如下：</p>
+
+<pre><code>void addEntry(int hash, K key, V value, int bucketIndex) {
+    if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) {
+        resize(2 * table.length);
+        hash = (null != key) ? hash(key) : 0;
+        bucketIndex = indexFor(hash, table.length);
+    }
+
+    createEntry(hash, key, value, bucketIndex);
+}
+</code></pre>
+
+<p>检查size是否大于了预定义的装载尺寸(capacity*loadFactor)，而table[index]处是否不为空，如果都满足，则需要重新构造HashMap,调用resize()
+重新扩充至hash表两倍长度，重新将Key的hash值与换算成table中的index；如果不满足，则直接创建Entry</p>
+
+<pre><code>void resize(int newCapacity) {
+    Entry[] oldTable = table;
+    int oldCapacity = oldTable.length;
+    if (oldCapacity == MAXIMUM_CAPACITY) {
+        threshold = Integer.MAX_VALUE;
+        return;
+    }
+
+    Entry[] newTable = new Entry[newCapacity];
+    boolean oldAltHashing = useAltHashing;
+    useAltHashing |= sun.misc.VM.isBooted() &amp;&amp;
+        (newCapacity &gt;= Holder.ALTERNATIVE_HASHING_THRESHOLD);
+    boolean rehash = oldAltHashing ^ useAltHashing;
+    transfer(newTable, rehash);
+    table = newTable;
+    threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);
+}
+</code></pre>
+
+<p>重新拓展HashMap的空间，如果oldCapacity已经为2的30次方了，则直接将下一次将要拓展的尺寸调到int的最大范围，然后以新的capacity长度新建一个table，
+将当前hash表中的Entry传送到新建的hash表中</p>
+
+<pre><code>void createEntry(int hash, K key, V value, int bucketIndex) {
+        Entry&lt;K,V&gt; e = table[bucketIndex];
+        table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);
+        size++;
+}
+</code></pre>
+
+<p>直接在table[bucketIndex]处新建一个Entry，size加1.</p>
+
+<hr />
+
+<p>再看get(K key)方法：</p>
+
+<pre><code>public V get(Object key) {
+    if (key == null)
+        return getForNullKey();
+    Entry&lt;K,V&gt; entry = getEntry(key);
+
+    return null == entry ? null : entry.getValue();
+}
+</code></pre>
+
+<p>先依然是判断是否key是否为null，如果是则返回getForNullKey(),然后调用getEntry(key)，判断其结果是否为null，是则返回null，否则返回该Entry的value</p>
+
+<pre><code>private V getForNullKey() {
+    for (Entry&lt;K,V&gt; e = table[0]; e != null; e = e.next) {
+        if (e.key == null)
+            return e.value;
+    }
+    return null;
+}
+</code></pre>
+
+<p>key为null的Entry都是放在table[0]这个槽中，遍历链表，返回key为null对应的value，否则返回null</p>
+
+<pre><code>final Entry&lt;K,V&gt; getEntry(Object key) {
+    int hash = (key == null) ? 0 : hash(key);
+    for (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)]; e != null; e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp;((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+           return e;
+    }
+    return null;
+}
+</code></pre>
+
+<p>计算key的hash，然后计算从table槽中的Entry开始遍历链表，如果遍历到某个Entry的hash跟key的hash相等，且其key与参数key相等，则返回该Entry的value,
+否则循环完成后仍没有返回，则返回null</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[More Effective Java]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/05/27/More-effective-Java/"/>
+    <updated>2014-05-27T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/05/27/More-effective-Java</id>
+    <content type="html"><![CDATA[<h1><a href="http://www.oracle.com/technetwork/articles/javase/bloch-effective-08-qa-140880.html">More Effective Java With Google&rsquo;s Joshua Bloch</a></h1>
+
+<p><em>By Janice J. Heiss, October 2008</em><BR>    <br/>
+<em><a href="http://www.oracle.com/technetwork/articles/java/index-141532.html">Interviews Index</a></em></p>
+
+<p><a href="http://www.amazon.com/Effective-Java-2nd-Joshua-Bloch/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223917599&amp;sr=1-1">Effective Java</a></p>
+
+<p>Joshua Bloch, Google首席Java架构师, 前Sun公司杰出的工程师，在那里他领导并设计实现了众多Java平台特性，包括语言增强型的JDK5.0和饱受赞誉的Java集合框架(Java Collections Framework).他是在卡耐基.梅隆大学获得其计算机科学博士学位.</p>
+
+<p>Bloch因为他在2001年第一次出版的一本书而获得由《软件开发》杂志颁发的，久负盛名的Jolt大奖,这本书就是《Effective Java Programming Language Guide》，也即是众多开发者熟知的《Effective Java》,同时他还与人(Neal Gafter)合著了另一本评价很高的书——《Java解惑》(《Java Puzzlers》）.</p>
+
+<p>如果有一本书是Java开发者值得反复研读，而不是挂在嘴边说最喜爱的书的话，那它一定是<a href="http://www.amazon.com/Effective-Java-2nd-Joshua-Bloch/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1223917599&amp;sr=1-1">Effective Java</a>.</p>
+
+<p>&ldquo;很容易觉得关于过早优化的普通警告对你不适用，因为你知道哪些代码是有严格时序的要求，且也知道怎样使其跑得更快. 但是在每次试图优化前或后，不经过测量，是不能够确定这一点的."——— Joshua Bloch,Author,《Effective Java, Second Edition》</p>
+
+<h2>Q</h2>
+
+<p>在新版的《Effective Java》的前言中,你描述了在2004年去Google的经历，并写到:&ldquo;我已经喜欢使用Java平台去开发一些类库，好在Google中使用它们. 现在我尝到了那些类库使用者的滋味"。那请问你作为一个用户体验者，如何通过本书的新版告诉我们什么呢？</p>
+
+<h2>A</h2>
+
+<p> 哦，首先，使我更强烈的感到API设计正确性的至关重要性.举个例子，我就十分想提供一个可替代的"文件通道"（FileChannel）来实现Google文件系统（Google File System），但是我不能，因为"文件系统"（FileChannel）是一个具体类，而不是一个接口.同样地，我想实现一个可增长的ByteBuffer，正是它们，令普通开发者每天都感到一系列的挫败感.</p>
+
+<h2>Q</h2>
+
+<p>你已经说过，Java开发者常见的一个错误是不自觉的倾向于代码优化，反而导致不必要的复杂度，使代码运行更慢.请问为什么开发者常常错误地优化代码?</p>
+
+<h2>A</h2>
+
+<p>作为一个软件开发者，你不得不变成一个乐观主义者，否则你就像掉进了一场战争.总得来讲，这是好事，但是也有一个负面情况：乐观导致过度自信，很容易觉得过早优化的普通警告并不适用于你，很容易觉得关于过早优化的普通警告对你不适用，因为你知道哪些代码是有严格时序的要求，且也知道怎样使其跑得更快. 但是在每次试图优化前或后，不经过测量，是不能够确定这一点的.</p>
+
+<h2>Q</h2>
+
+<p>你提到过另外一个错误，就是已经有一个很完美的库存在了，而有些开发者还是自顾自地写他们自己的代码而不用该库，开发者为什么会这么做呢？</p>
+
+<h2>A</h2>
+
+<p>有两个原因：到目前为止，最常见的原因是开发者压根就不知道已经有这个库存在了。 我理解开发者，因为有太多的库了，不可能对它们都保持跟踪，知晓动向. 也即是说，即是类库已经存在，也很难正确地获取到这些花大力气找到的特性。</p>
+
+<p>尤其是这样，当涉及到并发的时候. 专家们花费数月，写了些看上去还适当的并发程序，这种情况并不少见。当碰到这种功能需求时，聪明的开发者无论如何会去找一个合适的类库。确实很容易使重要的并发程序出错，而产生的错误几乎很难被发觉.</p>
+
+<p>第二个原因是开发者倾向于重新发明轮子，同样的原因是他们想过早地优化：想要保持代码健状,大多数开发者抱着一种“一定能做到”的态度, 然后实际确相去甚远. 他们对自己说,&ldquo;是的，这儿是有一个类库，但我能做得更好.&rdquo; 或许你确实能，但并不意味着你需要那样做. 使用标准库，除非它的的确确不符合你的需求.</p>
+
+<h2>Q</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/George_Orwell">George Orwell</a> 指出了5条著名的关于写代码的准则——那就再加上第六条: &ldquo;在满嘴胡说八道之前之前，打破这些规则.&rdquo; Effective Java现在又由78条诸如：“常用泛型方法”或者“考虑使用一个自定义的序列化形式”的规则组成。请问你有什么最喜欢的规则吗？那什么时候开发者应该打破这些规则呢？</p>
+
+<h2>A</h2>
+
+<p> 首先,我应该指出我厚着脸皮盗用了Orwell的警告.在Effective Java的介绍中，它是这样说的，“你不应该盲目地遵从规则，但是也只是偶尔有充分理由的情况下才打破它”</p>
+
+<p>我是一个易变的人，所以当另一天你再问我的时候，我最喜欢的规则可能已经变了，但今天，我选择第13条，“尽量减少类和成员的可访问性”，还有第15条，"尽量减小突变性.” 这两打规则超越任何特定的编程语言.</p>
+
+<p>前面一条是告诉你，想要扩展可行性，得最大限度的隐藏信息. 这信条最初来自David Parnas之口, 是良好编程的最基本的原则之一. 如果你隐藏信息，你就能自由的改变它们而不必冒险对系统做出有害的事情. 信息隐藏对模块与系统进行了解耦，允许它们可以独立地进行开发、测试、优化、使用、理解和修改</p>
+
+<p>后面一打是告诉你，想要尽可能简单地保持每个对象的状态空间. 如果一个对象是不可变的，它可以只有一个状态，那你赚大发了. 你永远不用担心这个对象的状态是什么, 你可以自由的分享它，且不需要做同步控制. 如果你不能使一个对象不可变，至少应可能将可变性降到最低. 这样使得更容易正确地使用对象.</p>
+
+<p>作为一个极端例子不应该这么做，那就是java.util.Calendar类库. 很少有人知道它的状态——我当然不是——这是一个持续了多年bug来源</p>
+
+<p>那么时候打破规则呢？ 为了阐述Orwell,你应该打破它们，当它们导致代码已经到了相当垃圾，忍无可忍的时候. 举个简单例子,第25说, &ldquo;首选lists而不是数组.&rdquo; 那么为什么values()方法出现在每个枚举类型中时候，返回却是数组?因为使用这个方法最常见的情况是为了遍历该枚举值的元素，实现起来遍历数组比遍历列表开销更小. 使用for-each结构，遍历代码如下面方式：</p>
+
+<pre><code>for (Planet p : Planet.values())
+</code></pre>
+
+<p>你可能也想过，从枚举设计者方面看来，这是不成熟的优化，但并不是那样的。这不仅仅是内嵌循环代码的问题，它是循环，当然是，我们(JSR201专家组)是在进行了广泛的性能测量之后做出的决定，我很满意我们当初所做的正确决定。</p>
+
+<p>另外你应该打破规则，是当其中两条规则促使你作出相反的决定的时候。在这种情况时，你不得不选择更重要的那个，这是非常困难的</p>
+
+<p>当我面对这种决定时，通常是找另一个人讨论讨论，以检查一下合理性. 这并不是什么丢脸的事情，可以说这是一个最佳实践. 与普遍的看法相反，软件设计确不是这样——或者不应该是这样——一个孤独的职业.</p>
+
+<p><strong>泛型、枚举、注解(Generics, Enums, and Annotations)</strong></p>
+
+<h2>Q</h2>
+
+<p>你相信开发者应该知道的泛型、枚举、注解，请给我们讲讲个中缘由</p>
+
+<h2>A</h2>
+
+<p>由于篇幅显示，它可能只是个小的尝试，但我们继续看。
+对于泛型，引述为"不要使用原始类型"（第23条）.如果一个类库设计者花费时间去设计一个泛型类库，你就应该好好利用它。换句话说，不要这样做：</p>
+
+<pre><code>//Raw type-leads to unsafe code!'
+List dogs = new ArrayList();'
+</code></pre>
+
+<p>相反地，应该这样：</p>
+
+<pre><code>List&lt;Dog&gt; dogs = new ArrayList&lt;Dog&gt;();
+</code></pre>
+
+<p>首先，这样看上去像是不必要的冗余，但是并不是这样的. 这样是告诉编译器哪种元素是这个List是持有的，使它能在编译期间发现很多错误，否则在运行的时候，
+会导致很多<strong>ClassCastException</strong>类型异常.你也能在你的程序中消除许多丑陋的转型</p>
+
+<p>对于枚举，引述为"总是使用枚举类代替整型常量" (第30条). 枚举类型具有很多优点：编译时期的类型安全,
+添加和删除其值不会影响客户端，有趣的打印值，关联方法与字段值的能力等等.因为有了EnumSet，这个建议同样适用于某些字段，
+尽管它或许这被认为已经被废弃了</p>
+
+<p>对于注解，引述为"不要采用你自定义注解，除非你有一个非常好的理由，在你的环境中老老实实用标准注解就行.&ldquo;
+对于许多程序员来说，唯一使用到的是@Override（第36条）和@SuppressWarnings（第24条）
+使用@Override注解是一个能轻松把你从难以察觉的错误中拯救出来。值得注意的是，你本想覆盖equals方法的时候，却以外地重载equals方法，这种
+情况并不少见，就造成了微妙的，致命的错误：</p>
+
+<pre><code>// Broken! Unintentional overloading
+public boolean equals(MyClass other) { // MyClass should be Object.
+    ...
+}
+</code></pre>
+
+<p>如果你告诉编译器，确实是你要覆盖父类中的方法，它就能向你报告你犯的错误：
+If you tell the compiler that you believe you&rsquo;re overriding a superclass method, it will inform you of your error:</p>
+
+<pre><code>// @Override annotation prevents broken code from compiling.
+@Override
+public boolean equals(MyClass mc) {
+    ...
+}
+</code></pre>
+
+<p>懒式初始化的最佳实践(Best Practices for Lazy Initialization)</p>
+
+<h2>Q</h2>
+
+<p>在lazy-initialization的最佳实践中，最重要的什么？</p>
+
+<h2>A</h2>
+
+<p>(lazy-initialization)对单例最重要的建议就是"不要这样做除非非做不可",
+The single most important piece of advice is &ldquo;Don&rsquo;t do it unless you need to.&rdquo;
+绝大多数的初始化代码看起来像下面这样:
+The great majority of your initialization code should look like this:</p>
+
+<pre><code>// Normal initialization, not lazy!
+private final FieldType field = computeFieldValue();
+</code></pre>
+
+<p>如果你需要正确地lazy-initialization——而不考虑性能的话——只使用一个同步处理器就成，简单明了，显然也不会出错。
+如果你需要考虑性能的话，你最好选择取决于你是初始化一个静态域还是一个实例域。
+如果是一个静态域，使用预定俗成的lazy-initialization持有
+类：</p>
+
+<pre><code>// Lazy initialization holder class idiom for static fields
+private static class FieldHolder {
+    static final FieldType field = computeFieldValue();
+}
+static FieldType getField() { return FieldHolder.field; }
+</code></pre>
+
+<p>这样约定俗成的方法简直就是魔法. 这儿有同步，但是是不可见的. Java运行环境在幕后为你做这一切。
+实际上，许多虚拟机为了消除不必要的一次同步，打了补丁代码，作了优化。所以这法子极其地快。</p>
+
+<p>如果需要高性能地lazy-initialization一个实例域的话，
+对一个易变域使用"双检查模式"(double-check idiom), 这种模式在JDK5.0发布版之前，当平台获取一块新内存模型，不保证一定能工作.
+ 这个方法非常快，但是也非常复杂微妙，所以不要试图以任何方式修改它。
+仅需Copy和Paste——通常这不是个好主意，但是在这儿是最恰当的:</p>
+
+<pre><code>// Double-check idiom for lazy initialization of instance fields.
+private volatile FieldType field;
+FieldType getField() {
+    FieldType result = field;
+    if (result == null) { // First check (no locking)
+        synchronized(this) {
+            result = field;
+            if (result == null) // Second check (with locking)
+                field = result = computeFieldValue();
+            }
+        }
+         return result;
+    }
+</code></pre>
+
+<p>关于这个话题更多信息，请查看第71条.</p>
+
+<h2>Q</h2>
+
+<p>告诉我们一些关于Effective Java第二版你最值得骄傲地方有哪些？</p>
+
+<h2>A</h2>
+
+<p>我骄傲的是我还保留着这本书的感觉， 即是这门语言已经成长了不少。其中一个原因是第一版非常成功是由于其短小而平易近人。
+随着新的语言、类库特性使得平台变得越来越大，越来越复杂，不可避免的，本书也壮大了(从57条变到了78条)，
+但是我尽最大努力试图保持它的短小精悍，根据早些时候的反馈，我想基本还是取得了很大的成功。</p>
+
+<p><strong>关于Java平台最奇怪的事情</strong></p>
+
+<h2>Q</h2>
+
+<p>在Java平台上，经过7年多对开发的反思，什么是你觉得最奇怪的事情，说说看？</p>
+
+<h2>A</h2>
+
+<p>噢，是个好问题&hellip;我正准备说说关于Java平台最最奇怪的事情，那就是关于byte类型是有正负之分的。我从来没有听到过相关解释。这是相当违反直觉，且会带来许多排序问题。举个例子，如下这个程序你怎么想？</p>
+
+<pre><code>class Delight {
+    public static void main(String[] args) {
+        for (byte b = Byte.MIN_VALUE;b &lt; Byte.MAX_VALUE; b++) {
+            if (b == 0x90)
+                System.out.print("Joy!");
+        }
+    }
+}
+</code></pre>
+
+<p>如果你有什么疑惑，运行一下，如果你需要解释这种行为，那找到一份《Java解惑》，查阅<strong>疑惑24</strong></p>
+
+<p><strong>单元测试是有必需的</strong></p>
+
+<h2>Q</h2>
+
+<p> Java拥护者Dr.Heinz Kabutz发现单元测试失败是Java开发者的一个大问题。他指出，“在会议上，我问到,&lsquo;你们当中有多少人对你们的代码进行单元测试？&rsquo; 几乎没有人举手————而这些都是些（Java）资深人士.” 你作何反应呢？</p>
+
+<h2>A</h2>
+
+<p>很抱歉听到这个，单元测试是必需的! 如果你不这样做，你就不知道你的代码是否正常工作. 一个好的单元测试集能带给你更多的信心，当你的代码首次运行的时候，而且在你维护的时候不至于引入新的bugs.就算你不可避免地引入了bugs，单元测试能使你尽早地发现它们，所以你就能在它们引起破坏之前修复它们。</p>
+
+<p>注意,无论如何, 不能靠单元测试来确保你的代码正确工作，你需要理解代码并亲自证明它能正确工作。你也需要另外的人复查它们，当涉及到代码的事情上，两个脑袋总比一个脑袋要好。要了解关于这个话题更多详细的讨论，查看我的一篇关于二分查找的文章</p>
+
+<p><strong><em>readResolve</em>关不是万全之策</strong></p>
+
+<h2>Q</h2>
+
+<p>当你修订Effective Java时,你说过你必须以批判的眼光检查第一版的一切. 这儿有你意识到之前写的有些错误的引导吗？</p>
+
+<h2>A</h2>
+
+<p>对的，我曾认为readResolve这个方法可靠地保证，一个单例在面对序列化与反序列化的时候始终保持单例，最后被证明那不总是正确的(查看第77条)</p>
+
+<p>幸运地是，这儿有一个漂亮的解决办法：将你的序列化单例作为一个元素的枚举类去实现。 同时，当我一字不漏地读第一版的时候，也发现了一些小尴尬，一些错别字7年了都没有被发现。 还好，我现在都不记得它们了.</p>
+
+<p><strong>成为一个更优秀的写手</strong></p>
+
+<h2>Q</h2>
+
+<p>你曾说过开发者应该读Strunk和White的合著的书The Elements of Style（《文体指南》），因为要想成为一个优秀的写手，
+会使你成为一个优秀的开发者。你能解释一个为什么会这样呢?</p>
+
+<h2>A</h2>
+
+<p>我相信读Strunk and White的书能使你成为一个更优秀的开发者，因为好的编程与好的写作都是关于清晰和经济的表达观点的。
+除非你明白你想要努力表达的，否则你不能写出好的代码或好的散文。
+许多Strunk和White的警告有直接类似软件的。举例来说，Strunk和White说，“省略不必要的废话!”类似Andy Hunt和Dave Thomas（“The Pragmatic Programmers”）就说，
+“不要重复你自己.” Strunk和White说，“反复推敲与改写”类似Matin Fowler说的,“重构”等等。事实上，许多Strunk和White的建议甚至应该被解释后直接应用于软件。这里有好多例子，是从The Elements of Style的目录中逐字逐字摘出来的:
+<strong>选择合适的设计并坚持下去</strong>
+<strong>清晰</strong>
+<strong>在明晰的代价上是不要走捷径</strong></p>
+
+<h2>Q</h2>
+
+<p>《Effective Java》的哪条准则会整合进NetBeans这个IDE的最佳实践中呢?</p>
+
+<h2>A</h2>
+
+<p>第一版的许多规则都已经被很多IDE捕获到并做了检查，比如NetBeans、IntelliJ、Eclipse。类似地，FindBugs工具已经能相当好地自动完成这些检查。我猜测这些新的规则也会在这些工具中找到他们的解决方式。
+举个简单例子，我知道IDE已经能够检查@Override注解的所代表的意思，也会在你忘记它们的时候给予警告。</p>
+
+<p><strong>泛型是如何工作的</strong></p>
+
+<h2>Q</h2>
+
+<p>在2003，你就评论说，J2SE 5.0的改变中，对Java开发者来说，如果有什么特别的挑战的话，那就是泛型，因为开发者们"必须习惯在声明提时供额外的信息.&ldquo;，对此你认为泛型是怎么工作的呢？</p>
+
+<h2>A</h2>
+
+<p>只不过是在声明时添加类型信息，这些信息被证明是比较复杂的，但是在泛型的其它方面被证明是远远充满挑战的。举个实例，我们极大的低估了通配符的复杂性。它们是在开发后周加入的，
+我们也对其带来的微妙不是太感冒.
+泛型肯定提高了这门语言表达的安全性，很高兴泛型能被添加进来。但是它们也不是完全的胜利。你只有去精读Angelika Langer长达513页的Java 泛型FAQs之后才会领悟到这一点。
+所以，我希望我们能尽可能地简化这些设计。我同样希望，我能找到一些途径，使得泛型能和原始类型一块工作，所以我们本应该避免自动装箱与自动拆箱，那被证明是有bug倾向的。</p>
+
+<p>你认为这个程序会打印出什么结果呢?如果你有疑虑的话，运行它试试：</p>
+
+<pre><code>public class Unbelievable {
+    static Integer i;
+    public static void main(String[] args) {
+        if (i == 42)
+       System.out.println("Unbelievable");
+    }
+}
+</code></pre>
+
+<p><strong>JAVA平台的未来</strong></p>
+
+<h2>Q</h2>
+
+<p>对未来Java平台的一般与特殊的瓶颈，你想说什么呢?</p>
+
+<h2>A</h2>
+
+<p>It&rsquo;s difficult to predict the future of the platform.
+Things have been moving a bit slowly since the release of Java SE 6,
+and no one is quite sure what is coming in Java SE 7, or when it&rsquo;s coming.
+I&rsquo;m convinced that the Java programming language has used up its complexity budget
+with the changes introduced in release 5.0.
+It would be a huge mistake to add any new language features that significantly
+increased the complexity of the language.
+I would place BGGA Closures squarely in this category.
+For more on this topic, you can take a look at the Closures Controversy talk.
+A modest collection of minor language changes could improve the language,
+but it would have to be done with the utmost restraint.
+很难预测这个平台的未来。自动Java SE 6之后，事情进展得有些慢，没有人能确定Java SE 7能带来什么，又或者什么时候带来。
+使我深信的是Java编程语言随着5.0发布版的改变，已经用完它的复杂性预算。
+加入一些新的语言特性，这可能是一个巨大的错误，因为这些特性显著地增加了语言的复杂性。
+我会将BGGA这个瓶颈拿入这个议题。关于更多这个主题，你可以在"瓶颈争议谈"中看到。
+一个适度的小小语言改变集合能提高这门语言，但是得在极端严格的限制下完成
+<strong>成为小丑和傻瓜On Being Zany and Goofy While Developing</strong></p>
+
+<h2>Q</h2>
+
+<p>You have a long history of emphasizing fun in everything you do. At your defense of your Ph.D. dissertation, you answered a planted question with a rap song backed by a recorded rhythm track on a hidden tape recorder. And you and Neal Gafter did a &ldquo;Java Puzzlers&rdquo; routine in which you donned mechanics' overalls and called yourselves &ldquo;Click and Hack, the Type-It Brothers,&rdquo; after the radio show Car Talk . What can you say about the importance of zaniness, goofiness, and joy in the process of developing?</p>
+
+<h2>A</h2>
+
+<p>It&rsquo;s a huge part of who I am and what I do. As I always say, computer science is an immature discipline, and I aim to keep it that way. I do much better work when I&rsquo;m having fun and pursuing my passion. I&rsquo;m deeply thankful that I&rsquo;ve been able to spend so much of my academic and professional careers doing exactly that.</p>
+
+<p><strong>Advice for New Developers</strong></p>
+
+<h2>Q</h2>
+
+<p>Effective Java is a book written for experienced Java developers. Do you have any advice for how a computer science major in college might benefit from the book? Or an experienced developer moving from another language to Java?</p>
+
+<h2>A</h2>
+
+<p>Many programmers find it useful to keep a copy at their desk so they can look at the code examples and such while they work. Also, I&rsquo;ve seen people use the book&rsquo;s &ldquo;Item&rdquo; references in comments explaining their design decisions. Needless to say, I&rsquo;m honored that they&rsquo;ve done so.</p>
+
+<p>As for programmers moving from another language, I think they&rsquo;d do well to read a quick introduction to Java before tackling my book. Peter Sestoft&rsquo;s book Java Precisely would be an excellent choice.</p>
+
+<p><strong>See Also</strong></p>
+
+<p>[Effective Java]
+[Java Puzzlers]
+[Seeing Shouldn&rsquo;t Be Believing: Solving Java Puzzlers With Google&rsquo;s Joshua Bloch]
+[2008 JavaOne Conference &ndash; Rock Star Joshua Bloch]
+[2007 JavaOne Conference &ndash; Rock Star Joshua Bloch]
+[Joshua Bloch&rsquo;s Closures Controversy Talk]
+[New Language Features for Ease of Development in the Java 2 Platform, Standard Edition 5.0: A Conversation With Joshua Bloch]
+[Becoming a Better Programmer: A Conversation With Java Champion Heinz Kabutz]
+(待续&hellip;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[由MD5想到的]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/05/23/Some-Thinkings-about-MD5/"/>
+    <updated>2014-05-23T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/05/23/Some-Thinkings-about-MD5</id>
+    <content type="html"><![CDATA[<h1>由MD5想到的</h1>
+
+<h2>起因</h2>
+
+<p>今天碰到一个问题，主要功能是解决管理员修改用户账户信息的，但是在这里，想管理员在修改用户账户资料界面，能看到账户的密码，这个密码生成的时候是采用MD5加密过后，存在数据库的。一开始我想的是，密码那块统一显示*** ***，后来，同事觉得不太好看，觉得应该把实际密码显示出来，我当时也没有多想，既然知道加油的密文，解码显示就是了。后来才知道，捅了一个大篓子。</p>
+
+<p>经验尚缺，还需努力!</p>
+
+<h2>经过</h2>
+
+<p>到处搜MD5的解密办法，貌似还有众多煞有介事的解密程序，写个测试代码，把找到的代码都测试一下，结果都行不通，将密文代进去就是有问题。到数据库找一个密文贴到<a href="http://www.cmd5.com/">http://www.cmd5.com/</a>、<a href="http://www.xmd5.org/">http://www.xmd5.org/</a>等网站，基本是秒出。然后我就纳闷了，这是咋回事呢？</p>
+
+<p>随后我对MD5算法看它的wiki，看它相关的资料，下面是wiki对它的解释：</p>
+
+<blockquote><p><em>MD5即Message-Digest Algorithm 5（消息摘要算法第五版）的简称，是当前计算机领域用于确保信息传输完整一致而广泛使用的散列算法之一（又译哈希算法、摘要算法等），主流编程语言普遍已有MD5的实现。将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理，MD5的前身有MD2、MD3和MD4</em></p></blockquote>
+
+<p>看到这里我就隐约觉得背后有座大山的阴影压了过来，想啊，是散列算法(hash)，从一串不定长的数字、文字散列，也可以说是一种压缩成固定长度值，没有问题，但是想要把固定值再反算回去的难度，不可想像啊。不说别的，就是说散列前的字符长度是多少？？这个就够人折腾了吧&hellip;再看看它的来历：</p>
+
+<blockquote><p><em>1992年8月Ronald L. Rivest向IETF提交了一份重要文件，描述了这种算法的原理，由于这种算法的公开性和安全性，在90年代被广泛使用在各种程序语言中，用以确保资料传递无误等。MD5由MD4、MD3、MD2改进而来，主要增强算法复杂度和<strong>不可逆性。</strong></em></p></blockquote>
+
+<p>看到这里就明白了，具有<strong>不可逆性</strong>啊，我就呵呵了，Ronald这位大神（不知道Google去）搞出来的算法，且还是MD4、MD3、MD2改进而来，关键是之前真心不知道MD5是不可逆性啊，这就是见识短浅的表现。再看看人家的算法实现，基本晕菜：</p>
+
+<blockquote><p><em>MD5是输入不定长度信息，输出固定长度128-bits的算法。经过程序流程，生成四个32位数据，最后联合起来成为一个128-bits散列。基本方式为，求余、取余、调整长度、与链接变量进行循环运算。得出结果。</em></p></blockquote>
+
+<p><strong>&lt;此处插入图片></strong></p>
+
+<p>一个MD5运算— 由类似的64次循环构成，分成4组16次。F 一个非线性函数；一个函数运算一次。Mi 表示一个 32-bits 的输入数据，Ki 表示一个 32-bits 常数，用来完成每次不同的计算。</p>
+
+<p>看到这里，我基本就不想再看下去了。</p>
+
+<p>无知者无畏，真像我这样的。深感惭愧，于是给同事解释说，不行啦，MD5是不可逆算法，没办法在知道数据库密文的情况下，将其用程序逆向算出来。他也挺纳闷，不是在线网站一下子就算出来了么？这是怎么回事呢？
+查查了资料，找到了关于<a href="http://www.cmd5.com/">http://www.cmd5.com/</a>的资料。</p>
+
+<blockquote><p><em>md5破解、动网论坛密码破解等不再需要用穷举法，本站共有md5记录235亿条，还在不断增长中，已包含10位及10位以下数字、7位字母、部分7位字母＋数字,全部6位及以下字母加数字等组合，并针对国内用户做了大量优化，例如已经包含所有手机号码、全国部分大中城市固定电话号码、百家姓、常用拼音等大量组合，另加入了某大型网站真实会员密码数据10万条。本站数据量大，查询速度快，同时支持16位及32位密码查询。通过对10万会员的真实动网论坛样本数据的测试，本站对于动网论坛密码的命中率达到83%。本站4T的硬盘已经上线，正在生成数据，预计需要2个月左右时间，到时候本站能查询到12位数字和9位字母。</em></p></blockquote>
+
+<p>本人没有在该网站找到上述资料，倒是在其首页有这条消息：</p>
+
+<blockquote><p><em>本站针对md5等全球通用加密算法进行反向解密，拥有全球最大的数据库，成功率全球第一，很多复杂密文只有本站才可解密，支持多种算法，实时查询记录超过24万亿条，共占用160T硬盘，成功率95%，一般的查询是免费的。</em></p></blockquote>
+
+<p>说明前一条消息已经是很久以前的了，那时候才4T数据，现在已经160T了，数据还在不停上升。</p>
+
+<p>还有<a href="http://www.xmd5.org/">http://www.xmd5.org/</a>的说明资料</p>
+
+<blockquote><p><em>XMD5是MD5在线破解的权威站点，国内首家世界领先的密码解密网站。2005年建站至今共提供查询服务几亿次。数据现已全面升级，实时MD5算法解密数据已达数千亿，后台超级破解采用非云分布式计算，MD5破解范围达数万万亿条。并首家提供Servu FTP、二次MD5加密及常见salt加密等变异MD5解密服务。数据库还在不断快速增加，MD5破解从来没有终点。没有假日，没有休息。</em></p></blockquote>
+
+<p>由于MD5是将任意长度的“字节串”映射为一个128bit的大整数，并且是通过该128bit反推原始字符串是困难的，换句话说就是，即使你看到源程序和算法描述，也无法将一个MD5的值变换回原始的字符串，从数学原理上说，是因为原始的字符串有无穷多个，这有点象不存在反函数的数学函数。那这些网站的黑客们是怎么做到秒出结果的呢，继续查找资料：</p>
+
+<blockquote><p><em>现在被黑客使用最多的一种破译密码的方法就是一种被称为<strong>&ldquo;跑字典&rdquo;</strong>的方法。有两种方法得到字典，<strong>一种是日常搜集的用做密码的字符串表</strong>，<strong>另一种是用排列组合方法生成的，先用MD5程序计算出这些字典项的MD5值，然后再用目标的MD5值在这个字典中检索</strong>。我们假设密码的最大长度为8位字节（8 Bytes），同时密码只能是字母和数字，共26+26+10=62个字符，排列组合出的字典的项数则是P（62,1）+P（62,2）….+P（62,8），那也已经是一个很天文的数字了，存储这个字典就需要TB级的磁盘阵列，而且这种方法还有一个前提，就是能获得目标账户的密码MD5值的情况下才可以。</em>（百度百科）</p></blockquote>
+
+<p>难怪秒出MD5的明文，原来这些网站的收集的字典如此强大啊，百T程度了都，解密都是以亿为单位了。因为查这个，真是了解了很多东西呀，用现在流行的话说：涨姿势了!</p>
+
+<h2>延伸</h2>
+
+<p>同前段时间，既然是密码算法，逃不出加密、解密，只是对于常规解密来说，MD5的解密成本忒高了而已。这不，前段就提供了黑客、在线网站的解密方法么——“跑字典”。</p>
+
+<p>接着查找相关资料，哈哈，找到一个让国人相当长脸的人物，对，是个人物——山大王小云教授，我们知道，既然是MD5采用Hash算法，那么Hash算法就一个著名的Hash冲突(Hash Collision)问题存在。王小云正是在这里下功夫，主要是利用相关杂凑函数的杂凑冲撞。所谓<strong>杂凑冲撞</strong>指两个完全不同的讯息经杂凑函数计算得出完全相同的杂凑值。根据鸽巢原理，以有长度限制的杂凑函数计算没有长度限制的讯息是必然会有冲撞情况出现的。可是，一直以来，电脑保安专家都认为要任意制造出冲撞需时太长，在实际情况上不可能发生，而王小云等的发现可能会打破这个必然性。破解MD5密码算法，运算量达到2的80次方。即使采用现在最快的巨型计算机，也要运算100万年以上才能破解。但<strong>王小云和她的研究小组用普通的个人电脑，几分钟内就可以找到有效结果。</strong></p>
+
+<p>这是相当了不起了，虽然实际上她并不是完全破解了MD5，只是加速了hash colision,而且这种方法，连续让几大密码大厦都面临坍塌的危险，造成的国际影响非常具有影响力。</p>
+
+<p>王小云介绍说，世界上由于没有两个完全相同的指纹，因此手印成为人们身份惟一和安全的标志。在网络安全协议中，使用Hash函数来处理电子签名，以便产生理论上独一无二的“指纹”，形成“数字手印”。按照理想安全要求，经过Hash函数产生的指纹，原始信息即使只改变一位，其产生的“指纹”也会截然不同。如果能找到Hash函数的碰撞，就意味着两个不同的文件可以产生相同的“指纹”，这样就可以伪造签名。</p>
+
+<p>事实上，在MD5被王小云为代表的中国专家破译之后，世界密码学界仍然认为SHA－1是安全的。2005年2月7日，美国国家标准技术研究院发表申明，SHA－1没有被攻破，并且没有足够的理由怀疑它会很快被攻破，开发人员在2010年前应该转向更为安全的SHA－256和SHA－512算法。而仅仅在一周之后，王小云就宣布了破译SHA-1的消息。</p>
+
+<p>一连串的事件让我对这位女教授崇拜有嘉，非常崇拜，十年辛勤耕耘，总开花结果。</p>
+
+<h2>感想</h2>
+
+<h3>一、学无止境</h3>
+
+<p>一开始就是因为不知道MD5算法，就按常规思维觉得，只要知道密文，逆向就能得到原文的。谁知</p>
+
+<h3>二、安全常识</h3>
+
+<p>其实作为一个系统管理员，任何时候都不能见到用户的密码原文，那怕出于修改的时候。要不然，管理员可不得了，在它面前，毫无秘密可言，虽然这里也暴露出一个问题，管理员知道用户密文的情况下，他要是有意识的将密文拷出来，然后到在线网站上解密的话，是很容易成功的，因为绝大多数密码都不太长、简单数字、吉利数字、生日、车牌、电话号码等，这些对于目前的在线解密网站来说，是毫无压力的。</p>
+
+<h3>三、有些看法</h3>
+
+<p>一开始搜索相关的MD5解码，还找到了题目尽是“MD5加密解密之类”的代码，误导了我还去写测试代码。所以对那些在网上发布类似的代码的时候，还是要加上清楚的说明，别动不动就是MD5解密了，那那些专家们还干嘛吃呀。</p>
+
+<h3>四、学习榜样</h3>
+
+<p>向榜样学习，下面链接是我在Dropbox王小云两篇关于MD5 Hash Collision的论文，都是英文的，且看且翻译吧!
+<a href ="https://www.dropbox.com/sh/qpbj2c6v1469voa/AACZsSHJ8Y6__aki99VDd4rXa?m=" target="blank">论文连接</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[为什么搬到这里(Where Here)]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/05/20/Why-Here/"/>
+    <updated>2014-05-20T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/05/20/Why-Here</id>
+    <content type="html"><![CDATA[<h1>为什么搬到这里</h1>
+
+<h2>首次接触GitHub</h2>
+
+<p>看我的github注册时间就应该知道，我是2013年初首次接触github的，被其新颖的分享方式，独特的代码交流吸引住了，然后就找了一大堆的相关材料阅读，
+不得不佩服我们的大教主，Linux之父发起的Git版本控制软件，然后在其思想及基础上，github降生了.
+对其历史，我就不在叙述，只是想说说我第一次接触的时候，它酷得让我着迷&hellip;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[关于博客(About the Blog)]]></title>
+    <link href="http://github.liuxboy.io/blog/2014/05/18/About-This-Blog/"/>
+    <updated>2014-05-18T00:00:00+08:00</updated>
+    <id>http://github.liuxboy.io/blog/2014/05/18/About-This-Blog</id>
+    <content type="html"><![CDATA[<h1>关于博客</h1>
+
+<h2>关于博客名</h2>
+
+<hr />
+
+<p>首先，向<strong>Linux</strong>之父<strong>Linus Benedict Torvalds</strong>致敬.</p>
+
+<p>其次，我姓刘<strong>(liu)</strong>,请各位注意，这名不叫<strong>&ldquo;linuxboy&rdquo;</strong>，我倒是发现太多叫<strong>&ldquo;linuxboy&rdquo;</strong>的网名或者博客了。</p>
+
+<h2>关于博客来历</h2>
+
+<hr />
+
+<ul>
+<li><p>作为喜欢开源运动的一分子，崇拜着开源界的大牛们，当然要向他们看齐，所以来到这里。</p></li>
+<li><p>之前在CSDN上面开过一个博客，其实一开始的用途很简单，就是为了下载上面的代码而注册的，后来发现也还能顺便开个博客，写点啥东西，于是就开博了，从2010年开始，陆陆续续写了文章，但也存在着13年几乎没有文章的情况。究其原因吧，主要是硕士毕业找工作的原因，所以的重心都放在找工作去了，所以无暇它顾了，现在来京近一年，工作稳定，急切需要对开发中的技术、问题、想法进行整理。</p></li>
+<li><p>github注册一年多，中途零星捣鼓过几次，然后又中断了。偶尔又发现了github的妙处，又进来了，从此一发不可收拾，深感惭愧。</p></li>
+<li><p>最重要的是，能让我亲自培养一个博客，督促自己完善，总结开发中的问题，技巧，思考等，提高经验的积累。</p></li>
+<li><p>最后，也许我写的东西不够酷，不够闪亮，不够如大牛般的如雷贯耳，但是我会坚持，坚持，再坚持，或许多年以后整理自己写过的东西，就可以作为自己的半部自传，未为可知。</p></li>
+</ul>
+
+
+<blockquote><p>金鳞伏池<br>
+以期际会<br>
+风云齐聚<br>
+飞天为龙</p></blockquote>
+
+<h2>关于更多</h2>
+
+<hr />
+
+<p>我用我的<a href="https://gist.github.com/Liuxboy" target="_blank" alt="刘春东的个人简历">Gist</a> 维护个人简历，这简历也还是2013年找工作时候的简历，目前没有更新。或许等哪一天要跳槽了，我会更新它。</p>
+
+<p>回过头来看自己从前经历，暗暗发笑，有些傻，且嫩。但还是，是一步步在前进，那怕偶尔峰回路转。N年以后，同样会笑今天的举动，但同样为感谢今天我努力的样子!</p>
+]]></content>
+  </entry>
   
 </feed>
